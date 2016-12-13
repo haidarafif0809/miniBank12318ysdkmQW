@@ -247,6 +247,7 @@ $ambil1 = mysqli_fetch_array($query10);
 
       <a class="btn btn-info" href="penyetoran.php" id="transaksi_baru" style="display: none"> <span class="glyphicon glyphicon-repeat"></span> Transaksi Baru</a>
      
+         <a href='cetak_data_penyetoran.php' id="cetak_tunai" style="display: none;" class="btn btn-success" target="blank"> <i class='fa fa-print'> </i>  </a>
 
           </form><!--tag penutup form-->
   <!--untuk mendefinisikan sebuah bagian dalam dokumen-->  
@@ -519,11 +520,16 @@ alert("Nama Akun Tidak Boleh Sama");
 
         $("#transaksi_baru").show();
         $("#submit_kas_masuk").hide();
-   	
+        $("#cetak_tunai").show();
+        
 $.post("proses_edit_penyetoran.php", {no_faktur:no_faktur, keterangan:keterangan,ke_akun:ke_akun,jumlah:jumlah,tanggal:tanggal}, function(info) {
 
 		$("#alert_berhasil").show();
 		$("#result").html(info);
+
+    var no_faktur = info;
+    $("#cetak_tunai").attr('href', 'cetak_data_penyetoran.php?no_faktur='+no_faktur+'');
+
 		$("#dariakun").val('');
 		$("#keakun").val('');
 		$("#jumlah").val('');

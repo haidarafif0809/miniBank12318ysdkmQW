@@ -71,6 +71,7 @@ if ($lihat['pembelian_lihat'] > 0){
 
                 echo '<li><a href="pembelian.php" class="waves-effect"> <i class="fa fa-shopping-basket"></i> Pembelian </a></li>';
 }
+*/
 
 if ($lihat['master_data_lihat'] > 0){
                 echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-server"></i> Master Data <i class="fa fa-angle-down rotate-icon"></i></a>
@@ -89,15 +90,15 @@ if ($lihat['jabatan_lihat'] > 0){
 if ($lihat['hak_otoritas_lihat'] > 0){
                                 echo '<li><a href="hak_otoritas.php" class="waves-effect">Otoritas</a></li>';
 }
-
+/*
 if ($lihat['suplier_lihat'] > 0){
                                 echo '<li><a href="suplier.php" class="waves-effect">Suplier</a></li>';
 }
-
+*/
 if ($lihat['pelanggan_lihat'] > 0){
                                 echo '<li><a href="pelanggan.php" class="waves-effect">Pelanggan</a></li>';
 }
-
+/*
 if ($lihat['item_lihat'] > 0){
                                 echo '<li><a href="barang.php?kategori=semua&tipe=barang_jasa" class="waves-effect" >Produk</a></li>';
 }
@@ -138,10 +139,11 @@ if ($lihat['set_akun_lihat'] > 0){
 <li><a href="setting_antrian_pelanggan.php" class="waves-effect">Setting Antrian</a></li>
 
 <?php
+*/
 if ($lihat['set_perusahaan_lihat'] > 0){
                                 echo '<li><a href="setting_perusahaan.php" class="waves-effect">Data Perusahaan</a></li>';
 }
-
+/*
 if ($lihat['set_diskon_tax_lihat'] > 0){
                                 echo '<li><a href="set_diskon_tax.php" class="waves-effect">Default Diskon & Pajak</a></li>';
 }
@@ -149,14 +151,14 @@ if ($lihat['set_diskon_tax_lihat'] > 0){
 if ($lihat['daftar_pajak_lihat'] > 0){
                                 echo '<li><a href="daftar_pajak.php" class="waves-effect">Daftar Pajak</a></li>';
 }
- 
+ */
   if ($lihat['master_data_lihat'] > 0){                           
                           echo ' </ul>
                         </div>
                     </li>';
 }
 
-
+/*
 if ($lihat['pembayaran_lihat'] > 0){
                     echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-credit-card"></i> Pembayaran <i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
@@ -189,10 +191,6 @@ if ($lihat['pembayaran_hutang_lihat'] > 0){
                                 echo '<li><a href="kas_masuk.php" class="waves-effect">Kas Masuk</a></li>';
 }
 
- if ($lihat['kas_masuk_lihat'] > 0){
-                                echo '<li><a href="data_penyetoran.php" class="waves-effect">Penyetoran</a></li>';
-}
-
  if ($lihat['kas_keluar_lihat'] > 0){
                                 echo '<li><a href="kas_keluar.php" class="waves-effect">Kas Keluar</a></li>';
 }
@@ -200,13 +198,18 @@ if ($lihat['pembayaran_hutang_lihat'] > 0){
  if ($lihat['kas_mutasi_lihat'] > 0){
                                 echo '<li><a href="kas_mutasi.php" class="waves-effect">Kas Mutasi</a></li>';
 }
+
+echo"<li><a href=data_penyetoran.php class='waves-effect'>Penyetoran Tabungan</a></li>";
+
+echo"<li><a href=penarikan.php class='waves-effect'>Penarikan</a></li>";
+
  if ($lihat['transaksi_kas_lihat'] > 0){
                         echo '</ul>
                         </div>
                     </li>';
 
 }
-
+/*
  if ($lihat['persediaan_lihat'] > 0){
                 echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-archive"></i> Persediaan <i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
@@ -264,7 +267,7 @@ if ($lihat['retur_lihat'] > 0){
                         </div>
                     </li>';
 }
-
+*/
  if ($lihat['akuntansi_lihat'] > 0){
                 echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-balance-scale"></i> Akuntansi <i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
@@ -301,7 +304,7 @@ if ($lihat['akuntansi_lihat'] > 0){
                         </div>
                     </li>';
 }
-
+/*
  if ($lihat['laporan_lihat'] > 0){
                 echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-book"></i> Laporan <i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
@@ -358,7 +361,7 @@ if ($lihat['laporan_lihat'] > 0){
                     </li>';
 }
 
-
+*/
  if ($lihat['kas_lihat'] > 0){
                 echo '<li><a href="kas.php" class="waves-effect"> <i class="fa fa-money"></i> Posisi Kas </a></li>';
 }

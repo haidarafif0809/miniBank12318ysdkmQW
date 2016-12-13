@@ -4,7 +4,7 @@
     include 'sanitasi.php';
     include 'db.php';
     
-$no_faktur = stringdoang($_POST['no_faktur']);
+echo $no_faktur = stringdoang($_POST['no_faktur']);
 
 $tahun_sekarang = date('Y');
 $bulan_sekarang = date('m');
@@ -46,7 +46,7 @@ if (!$perintah) {
    ' - '.$db->error);
 }
 else {
-    echo "sukses";
+     "sukses";
 
 }
 
