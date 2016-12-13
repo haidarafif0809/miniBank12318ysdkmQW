@@ -62,7 +62,7 @@ $pilih_akses_lihat = $db->query("SELECT open.penjualan_lihat, open.retur_lihat, 
 $lihat = mysqli_fetch_array($pilih_akses_lihat);
 
 
-
+/*
 if ($lihat['penjualan_lihat'] > 0){
                 echo '<li><a href="penjualan.php?status=semua" class="waves-effect"> <i class="fa fa-shopping-cart"></i> Penjualan </a></li>';
 }
@@ -176,6 +176,7 @@ if ($lihat['pembayaran_hutang_lihat'] > 0){
                         </div>
                     </li>';
 }
+*/
 
  if ($lihat['transaksi_kas_lihat'] > 0){
                     echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-credit-card-ALT"></i> Transaksi <i class="fa fa-angle-down rotate-icon"></i></a>
@@ -186,6 +187,10 @@ if ($lihat['pembayaran_hutang_lihat'] > 0){
 
  if ($lihat['kas_masuk_lihat'] > 0){
                                 echo '<li><a href="kas_masuk.php" class="waves-effect">Kas Masuk</a></li>';
+}
+
+ if ($lihat['kas_masuk_lihat'] > 0){
+                                echo '<li><a href="data_penyetoran.php" class="waves-effect">Penyetoran</a></li>';
 }
 
  if ($lihat['kas_keluar_lihat'] > 0){

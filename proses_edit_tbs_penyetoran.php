@@ -4,7 +4,7 @@
     include 'sanitasi.php';
     include 'db.php';
    
-        $perintah = $db->prepare("INSERT INTO tbs_kas_masuk (no_faktur,keterangan,dari_akun,ke_akun, jumlah,tanggal,jam,user) VALUES (?,?,?,?,?,now(),now(),?)");
+    $perintah = $db->prepare("INSERT INTO tbs_penyetoran (no_faktur,keterangan,dari_akun,ke_akun, jumlah,tanggal,jam,user) VALUES (?,?,?,?,?,now(),now(),?)");
 
         $perintah->bind_param("ssssis",
           $no_faktur, $keterangan, $dari_akun, $ke_akun, $jumlah, $user);

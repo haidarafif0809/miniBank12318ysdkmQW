@@ -5,11 +5,11 @@
  include 'db.php';
  include 'sanitasi.php';
 
- $query = $db->query("SELECT * FROM kas_masuk ");
+ $query = $db->query("SELECT * FROM penyetoran ");
  
  $session_id = session_id();
 
- $tbs = $db->query("SELECT tk.dari_akun,tk.ke_akun, da.nama_daftar_akun FROM tbs_kas_masuk tk INNER JOIN daftar_akun da ON tk.ke_akun = da.kode_daftar_akun WHERE tk.session_id = '$session_id' ");
+ $tbs = $db->query("SELECT tk.dari_akun,tk.ke_akun, da.nama_daftar_akun FROM tbs_penyetoran tk INNER JOIN daftar_akun da ON tk.ke_akun = da.kode_daftar_akun WHERE tk.session_id = '$session_id' ");
 
  $data_tbs = mysqli_num_rows($tbs);
  $data_tbs1 = mysqli_fetch_array($tbs);
@@ -32,7 +32,7 @@
 
 <div class="container">
 
-<h3> <u> FORM KAS MASUK </u> </h3>
+<h3> <u> Form Penyetoran Uang </u> </h3>
 <br><br>
 
 <!-- Modal Hapus data -->
@@ -114,7 +114,7 @@
   </div>
 </div><!-- end of modal edit data  -->
 
-<form action="proses_tbs_kas_masuk.php" role="form" method="post" id="formtambahproduk">
+<form action="proses_tbs_penyetoran.php" role="form" method="post" id="formtambahproduk">
 <div class="row">
 
 					<div class="form-group col-sm-3">
@@ -141,7 +141,7 @@
 </div> <!-- tag penutup div row -->
 
 <div class="row">
- <div class="card card-block">
+ <div id="block" class="card card-block">
 
 					<div class="form-group col-sm-3">
 					<label> Dari Akun </label><br>
@@ -151,11 +151,11 @@
 					 <?php 
 
     
-    $query = $db->query("SELECT * FROM daftar_akun ");
+    $query = $db->query("SELECT id,kode_pelanggan,nama_pelanggan FROM pelanggan ");
     while($data = mysqli_fetch_array($query))
     {
     
-    echo "<option value='".$data['kode_daftar_akun'] ."'>".$data['nama_daftar_akun'] ."</option>";
+    echo "<option value='".$data['id'] ."'>(".$data['kode_pelanggan'].") ".$data['nama_pelanggan']."</option>";
     }
     
     
@@ -229,7 +229,7 @@
 
 </form>
 
-<form action="proses_kas_masuk.php" id="form_submit" method="POST"><!--tag pembuka form-->
+<form id="form_submit" method="POST"><!--tag pembuka form-->
 <style type="text/css">
 	.disabled {
     opacity: 0.6;
@@ -242,8 +242,9 @@
   <!--membuat tombol submit bayar & Hutang-->
      
 
-      <a class="btn btn-info" href="form_kas_masuk.php" id="transaksi_baru" style="display: none"> <i class="fa fa-refresh"></i> Transaksi Baru</a>
+      <a class="btn btn-info" href="penyetoran.php" id="transaksi_baru" style="display: none"> <i class="fa fa-refresh"></i> Transaksi Baru</a>
      
+   <a href='cetak_data_penyetoran.php' id="cetak_tunai" style="display: none;" class="btn btn-success" target="blank"> <i class='fa fa-print'> </i>  </a>
 
           </form><!--tag penutup form-->
   <!--untuk mendefinisikan sebuah bagian dalam dokumen-->  
@@ -254,7 +255,8 @@
       <span id="result">  
       
         <div class="table-responsive">
-      <!--tag untuk membuat garis pada tabel-->     
+      <!--tag untuk membuat garis pada tabel-->   
+      <span id="show_data">
   <table id="tableuser" class="table table-bordered">
     <thead>
       <th> Dari Akun </th>
@@ -272,29 +274,34 @@
     <?php
 
     //menampilkan semua data yang ada pada tabel tbs kas masuk dalam DB
-$perintah = $db->query("SELECT km.id, km.session_id, km.no_faktur, km.keterangan, km.ke_akun, km.dari_akun, km.jumlah, km.tanggal, km.jam, km.user, da.nama_daftar_akun FROM tbs_kas_masuk km INNER JOIN daftar_akun da ON km.ke_akun = da.kode_daftar_akun WHERE session_id = '$session_id'");
+$perintah = $db->query("SELECT km.id, km.session_id, km.no_faktur, km.keterangan, km.ke_akun, km.dari_akun, km.jumlah, km.tanggal, km.jam, km.user, da.nama_daftar_akun FROM tbs_penyetoran km INNER JOIN daftar_akun da ON km.ke_akun = da.kode_daftar_akun WHERE session_id = '$session_id'");
 
       //menyimpan data sementara yang ada pada $perintah
 
       while ($data1 = mysqli_fetch_array($perintah))
       {
  
-        $perintah1 = $db->query("SELECT km.id, km.session_id, km.no_faktur, km.keterangan, km.dari_akun, km.jumlah, km.tanggal, km.jam, km.user, da.nama_daftar_akun FROM tbs_kas_masuk km INNER JOIN daftar_akun da ON km.dari_akun = da.kode_daftar_akun WHERE km.dari_akun = '$data1[dari_akun]'");
+        $perintah1 = $db->query("SELECT km.id, km.session_id, km.no_faktur, km.keterangan, km.dari_akun, km.jumlah, km.tanggal, km.jam, km.user, da.nama_daftar_akun,p.kode_pelanggan FROM tbs_penyetoran km INNER JOIN daftar_akun da ON km.dari_akun = da.kode_daftar_akun INNER JOIN pelanggan p ON km.dari_akun = p.id WHERE km.dari_akun = '$data1[dari_akun]'");
         $data10 = mysqli_fetch_array($perintah1);
 
+
+        $show = $db->query("SELECT kode_pelanggan,nama_pelanggan FROM pelanggan WHERE id = '$data1[dari_akun]'");
+        $take = mysqli_fetch_array($show);
         //menampilkan data
       echo "<tr class='tr-id-".$data1['id']."'>
-      <td data-dari-akun ='".$data10['nama_daftar_akun']."'>". $data10['nama_daftar_akun'] ."</td>
+
+      <td data-dari-akun ='".$data1['dari_akun']."'>(".$take['kode_pelanggan'].") ".$take['nama_pelanggan']."</td>
+
       <td>". $data1['nama_daftar_akun'] ."</td>
 
-      <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' autofocus='' data-jumlah='".$data1['jumlah']."'> </td>   
+     <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' autofocus='' data-jumlah='".$data1['jumlah']."'> </td>   
 
       <td>". $data1['tanggal'] ."</td>
       <td>". $data1['jam'] ."</td>
       <td>". $data1['keterangan'] ."</td>
       <td>". $data1['user'] ."</td>
 
-      <td> <button class='btn btn-danger btn-hapus-tbs' id='btn-hapus-".$data1['id']."' data-id='". $data1['id'] ."' data-jumlah='".$data1['jumlah']."' data-dari='". $data1['dari_akun'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button> </td> 
+     <td> <button class='btn btn-danger btn-hapus-tbs' id='btn-hapus-".$data1['id']."' data-id='". $data1['id'] ."' data-jumlah='".$data1['jumlah']."' data-dari='". $data1['dari_akun'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button> </td> 
       
       </tr>";
       }
@@ -332,17 +339,16 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-  
   $(document).ready(function(){
-
   $("#dariakun").change(function(){
 
-          var keakun = $("#keakun").val();
           var session_id = $("#session_id").val();
           var dariakun = $("#dariakun").val();
           
-          $.post("cek_tbs_kas_masuk.php",{session_id:session_id,keakun:keakun,dariakun:dariakun},function(data){
-          if (data == "ya") {
+          $.post("cek_tbs_setoran.php",{session_id:session_id,dariakun:dariakun},function(data){
+          
+          data = data.replace(/\s+/g, '');
+         if (data == "ya") {
           
             alert("Akun Sudah Ada, Silakan Pilih Akun lain!");
             $("#dariakun").val('');
@@ -360,11 +366,7 @@ $(document).ready(function(){
 
 
 <script>
-   //perintah javascript yang diambil dari form tbs pembelian dengan id=form tambah produk
-
-  
-   $("#submit_produk").click(function(){
-
+$(document).on('click', '#submit_produk', function (e) {
    	var session_id = $("#session_id").val();
    	var keterangan = $("#keterangan").val();
    	var dari_akun = $("#dariakun").val();
@@ -410,11 +412,11 @@ else {
   $("#jumlahtotal").val(tandaPemisahTitik(subtotal))
 
 
-	$.post("proses_tbs_kas_masuk.php", {session_id:session_id, keterangan:keterangan,dari_akun:dari_akun,ke_akun:ke_akun,jumlah:jumlah,tanggal:tanggal}, function(info) {
+	$.post("proses_tbs_penyetoran.php", {session_id:session_id, keterangan:keterangan,dari_akun:dari_akun,ke_akun:ke_akun,jumlah:jumlah,tanggal:tanggal}, function(info) {
 
 
      
-     $("#result").load('tabel_kas_masuk.php');
+     $("#result").load('table_penyetoran.php');
      $("#dariakun").val('');
      $("#jumlah").val('');
      $("#keterangan").val('');
@@ -442,7 +444,7 @@ $("#keakun").attr("disabled", true);
 
 $(document).ready(function(){
     var session_id = $("#session_id").val();
-$.post("cek_jumlah_kas_masuk.php",
+$.post("cek_jumlah_penyetoran.php",
     {
         session_id: session_id
     }, function(data){
@@ -491,9 +493,6 @@ alert("Nama Akun Tidak Boleh Sama");
 
 
 <script>
- 
-
-  
    $("#submit_kas_masuk").click(function(){
 
    	var session_id = $("#session_id").val();
@@ -521,11 +520,15 @@ alert("Nama Akun Tidak Boleh Sama");
 
       $("#submit_kas_masuk").hide();
       $("#transaksi_baru").show();
-   	
-$.post("proses_kas_masuk.php", {session_id:session_id,no_faktur:no_faktur,keterangan:keterangan,ke_akun:ke_akun,jumlah:jumlah,tanggal:tanggal}, function(info) {
+   	 $("#cetak_tunai").show();
 
-		$("#alert_berhasil").show();
+$.post("proses_penyetoran.php", {session_id:session_id,no_faktur:no_faktur,keterangan:keterangan,ke_akun:ke_akun,jumlah:jumlah,tanggal:tanggal}, function(info) {
+
 		$("#result").html(info);
+    var no_faktur = info;
+    $("#cetak_tunai").attr('href', 'cetak_data_penyetoran.php?no_faktur='+no_faktur+'');
+    $("#alert_berhasil").show();
+    $("#block").hide();
 		$("#dariakun").val('');
 		$("#keakun").val('');
 		$("#jumlah").val('');
@@ -544,7 +547,7 @@ $.post("proses_kas_masuk.php", {session_id:session_id,no_faktur:no_faktur,ketera
      
    $("#submit_kas_masuk").mouseleave(function(){
 
-          $.get('no_faktur_KM.php', function(data) {
+          $.get('no_faktur_penyetoran.php', function(data) {
    /*optional stuff to do after getScript */ 
 
 $("#nomorfaktur1").val(data);
@@ -569,6 +572,8 @@ $("#alert_berhasil").hide();
 });
 
 </script>
+
+                           
 
                                   <script type="text/javascript">
                                
@@ -602,14 +607,10 @@ $("#alert_berhasil").hide();
 
 
                                   $("#jumlahtotal").val(tandaPemisahTitik(subtotal))
-
-
-                                  $.post("hapus_tbs_kas_masuk.php",{id:id},function(data){
-
-                                  if (data != '') {
+                                 
                                   $(".tr-id-"+id+"").remove();
-                                  }
-         
+                                  $.post("delete_tbs_penyetoran.php",{id:id},function(data){
+
                                   });
                                   
                                   });
@@ -636,8 +637,7 @@ $("#alert_berhasil").hide();
                                   </script>
 
 
-
-                                  <script type="text/javascript">
+<script type="text/javascript">
                                     
                                     $(".edit-jumlah").dblclick(function(){
                                     
@@ -669,7 +669,7 @@ $("#alert_berhasil").hide();
                                     var subtotal = parseInt(total_lama,10) - parseInt(jumlah_lama,10) + parseInt(input_jumlah,10);
                                     
                                     
-                                    $.post("update_tbs_kas_masuk.php",{id:id,input_jumlah:input_jumlah,jenis_edit:"jumlah"},function(data){
+                                    $.post("update_tbs_penyetoran.php",{id:id,input_jumlah:input_jumlah,jenis_edit:"jumlah"},function(data){
                                    
                                     $("#input-jumlah-"+id).attr("data-jumlah", input_jumlah);
                                     $("#btn-hapus-"+id).attr("data-jumlah", input_jumlah);
@@ -685,6 +685,7 @@ $("#alert_berhasil").hide();
                                     });
                                     
                                     </script>
+
 
 <?php 
 include 'footer.php';
