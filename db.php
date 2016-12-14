@@ -1,9 +1,9 @@
 <?php date_default_timezone_set("Asia/Jakarta");
 
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "sekolah";
+$username = "demoo";
+$password = "asdakgnadjfbdfnkb34r3cff3";
+$dbname = "minibank_smk4bl";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
 
