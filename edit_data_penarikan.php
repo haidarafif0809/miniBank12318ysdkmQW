@@ -219,6 +219,7 @@ $ambil1 = mysqli_fetch_array($query10);
                       
                     ?>
             </select>
+                        <input type="hidden" name="jumlah_tabungan" id="jumlah_tabungan" autocomplete="off"onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" class="form-control">
           </div>
 
 
@@ -291,7 +292,7 @@ $ambil1 = mysqli_fetch_array($query10);
       <td data-dari-akun ='".$data1['nama_daftar_akun']."'>". $data1['nama_daftar_akun'] ."</td>
       <td>(". $data1['kode_pelanggan'] .") ". $data1['nama_pelanggan'] ."</td>
       
-      <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' autofocus='' data-jumlah='".$data1['jumlah']."'> </td>
+      <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' data-ke_akun='".$data1['ke_akun']."' autofocus='' data-jumlah='".$data1['jumlah']."' onkeydown='return numbersonly(this, event);' onkeyup='javascript:tandaPemisahTitik(this);'> </td>
       
       <td>". $data1['tanggal'] ."</td>
       <td>". $data1['jam'] ."</td>
@@ -395,6 +396,7 @@ else {
      $("#keakun").val('');
      $("#jumlah").val('');
      $("#keterangan").val('');
+             $("#jumlah_tabungan").val('');
        
    });
 }
@@ -564,6 +566,7 @@ $("#dariakun").val('');
           
             alert("Akun Sudah Ada, Silakan Pilih Akun lain!");
             $("#keakun").val('');
+             $("#jumlah_tabungan").val('');
           }
           else{
           
@@ -571,7 +574,34 @@ $("#dariakun").val('');
 
 });
 
+                    // cek uang siswa
+          $.post("cek_edit_tabungan_siswa.php",{keakun:keakun,no_faktur:no_faktur},function(data){
+            $("#jumlah_tabungan").val(data);
+          });
+          //end cek uang siswa
+
         });
+
+        $(document).on('keyup','#jumlah',function(e){
+
+        var jumlah = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah( $(this).val() ))));
+        if (jumlah == '') {
+          jumlah = 0;
+        }
+        var jumlah_tabungan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlah_tabungan").val()))));
+        if (jumlah_tabungan == '') {
+          jumlah_tabungan = 0;
+        }
+
+        var hitung_total = parseInt(jumlah_tabungan ,10) - parseInt(jumlah,10);
+
+        if (hitung_total < 0) {
+          alert("Jumlah Tabungan Tidak Mencukupi");
+          $(this).val('');
+          $(this).focus();
+        }
+
+      });
 });
 
 </script>
@@ -665,7 +695,9 @@ $("#dariakun").val('');
                                     });
                                     
                                      $(document).on('blur','.input-jumlah',function(){                                   
-                                    var id = $(this).attr("data-id");
+                                    var id = $(this).attr("data-id");    
+                                    var no_faktur = $("#nomorfaktur1").val()
+                                    var keakun = $(this).attr("data-ke_akun");
                                     var input_jumlah =  bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah( $(this).val() ))));
                                     if (input_jumlah == '') {
                                       input_jumlah = 0;
@@ -696,16 +728,22 @@ $("#dariakun").val('');
                               }
                               else
                               {
-                                      $.get("cek_edit_tbs_jumlahpenarikan.php",function(data){
-                                          if (data == 1) {
-                                             alert("Jumlah Penarikan Tidak Mencukupi");
-                                            $("#input-jumlah-"+id).attr("data-jumlah", jumlah_lama);
-                                            $("#btn-hapus-"+id).attr("data-jumlah", jumlah_lama);
-                                            $("#text-jumlah-"+id+"").show();
-                                            $("#text-jumlah-"+id+"").text(tandaPemisahTitik(jumlah_lama));
-                                            $("#input-jumlah-"+id+"").attr("type", "hidden");
-                                            $("#input-jumlah-"+id+"").val(tandaPemisahTitik(jumlah_lama));
-                                          }
+                                    $.post("cek_edit_tabungan_siswa.php",{keakun:keakun,no_faktur:no_faktur},function(data){
+
+                                      if (data == '') {
+                                        data = 0;
+                                      } 
+                                      var hitung_total = parseInt(data,10) - parseInt(input_jumlah,10);
+
+                                      if (hitung_total < 0) {
+                                        alert("Jumlah Tabungan Tidak Mencukupi");
+                                          $("#text-jumlah-"+id+"").show();
+                                          $("#text-jumlah-"+id+"").text(tandaPemisahTitik(jumlah_lama));
+                                          $("#input-jumlah-"+id+"").attr("type", "hidden"); 
+                                          $("#input-jumlah-"+id).attr("data-jumlah", jumlah_lama);
+                                          $("#input-jumlah-"+id).val(jumlah_lama);
+                                       
+                                      }
                                           else
                                           {
                                             $.post("update_edit_tbs_penarikan.php",{id:id, input_jumlah:input_jumlah,jenis_edit:"jumlah"},function(data){

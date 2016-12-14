@@ -288,7 +288,7 @@
       <td>". $data1['nama_daftar_akun'] ."</td>
       <td data-dari-akun ='(". $data1['kode_pelanggan'] .") ". $data1['nama_pelanggan'] ."'>(". $data1['kode_pelanggan'] .") ". $data1['nama_pelanggan'] ."</td>
 
-      <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' data-ke_akun='".$data1['ke_akun']."' autofocus='' data-jumlah='".$data1['jumlah']."'> </td>
+      <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' data-ke_akun='".$data1['ke_akun']."' autofocus='' data-jumlah='".$data1['jumlah']."' onkeydown='return numbersonly(this, event);' onkeyup='javascript:tandaPemisahTitik(this);'> </td>
 
       <td>". $data1['tanggal'] ."</td>
       <td>". $data1['jam'] ."</td>
@@ -404,6 +404,7 @@ else {
      $("#keakun").val('');
      $("#jumlah").val('');
      $("#keterangan").val('');
+     $("#jumlah_tabungan").val('');
             
    });
 }
@@ -441,6 +442,7 @@ $("#dariakun").attr("disabled", true);
             
             alert("Akun Sudah Ada, Silakan Pilih Akun lain!");
             $("#keakun").val('');
+             $("#jumlah_tabungan").val('');
           }
           else{
           
@@ -736,7 +738,7 @@ alert("Nama Akun Tidak Boleh Sama");
                     $("#text-jumlah-"+id+"").text(tandaPemisahTitik(jumlah_lama));
                     $("#input-jumlah-"+id+"").attr("type", "hidden"); 
                     $("#input-jumlah-"+id).attr("data-jumlah", jumlah_lama);                    
-
+                    $("#input-jumlah-"+id).val(jumlah_lama);    
                     }
                     else
                     {
@@ -748,12 +750,14 @@ alert("Nama Akun Tidak Boleh Sama");
                                       } 
                                       var hitung_total = parseInt(data,10) - parseInt(input_jumlah,10);
 
-                                      if (hitung_total < 1) {
+                                      if (hitung_total < 0) {
                                         alert("Jumlah Tabungan Tidak Mencukupi");
                                           $("#text-jumlah-"+id+"").show();
                                           $("#text-jumlah-"+id+"").text(tandaPemisahTitik(jumlah_lama));
                                           $("#input-jumlah-"+id+"").attr("type", "hidden"); 
                                           $("#input-jumlah-"+id).attr("data-jumlah", jumlah_lama);
+                                          $("#input-jumlah-"+id).val(jumlah_lama);
+                                       
                                       }
                                       else
                                       {
@@ -765,7 +769,8 @@ alert("Nama Akun Tidak Boleh Sama");
                                           $("#text-jumlah-"+id+"").show();
                                           $("#text-jumlah-"+id+"").text(tandaPemisahTitik(input_jumlah));
                                           $("#jumlahtotal").val(tandaPemisahTitik(subtotal));
-                                          $("#input-jumlah-"+id+"").attr("type", "hidden");           
+                                          $("#input-jumlah-"+id+"").attr("type", "hidden");
+                                          $("#input-jumlah-"+id).val(input_jumlah);           
                                           
                                           });
                                                                            

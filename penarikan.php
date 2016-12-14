@@ -197,18 +197,18 @@ if ($kas_keluar['kas_keluar_hapus'] > 0) {
 			<td>". $data1['jam'] ."</td>
 			<td>". $data1['user'] ."</td>
 			
-			<td><a   class=' btn btn-primary' href='cetak_penarikan.php?no_faktur=".$data1['no_faktur']."' target='blank'> <i class='fa fa-print'></i> &nbsp;Cetak </a></td>
+			<td><a class='btn btn-primary' href='cetak_penarikan.php?no_faktur=".$data1['no_faktur']."' target='blank'> <i class='fa fa-print'></i> &nbsp;Cetak </a></td>
 
-			<td> <button class=' btn btn-info detail' no_faktur='". $data1['no_faktur'] ."'> <i class='fa fa-th-list'></i> Detail </button> </td>";
+			<td> <button class='btn btn-info detail' no_faktur='". $data1['no_faktur'] ."'> <i class='fa fa-th-list'></i> Detail </button> </td>";
 
 if ($kas_keluar['kas_keluar_edit'] > 0) {
 
-			echo "<td> <a href='proses_edit_penarikan.php?no_faktur=". $data1['no_faktur']."&nama_daftar_akun=". $data1['nama_daftar_akun']."' class='btn btn-success'> <i class='fa fa-edit'></i> Edit </a> </td>";
+			echo "<td> <a href='proses_edit_penarikan.php?no_faktur=". $data1['no_faktur']."&nama_daftar_akun=". $data1['nama_daftar_akun']."' class='btn btn-success'> <i class='fa fa-edit'></i>Edit</a> </td>";
 		}
 
 if ($kas_keluar['kas_keluar_hapus'] > 0) {
 
-			echo "<td> <button class=' btn btn-danger btn-hapus' data-id='". $data1['id'] ."' no-faktur='". $data1['no_faktur'] ."'><i class='fa fa-trash'> </i> Hapus </button> </td> 
+			echo "<td> <button class='btn btn-danger btn-hapus' data-id='". $data1['id'] ."' no-faktur='". $data1['no_faktur'] ."'><i class='fa fa-trash'> </i> Hapus </button> </td> 
 
 			
 			</tr>";

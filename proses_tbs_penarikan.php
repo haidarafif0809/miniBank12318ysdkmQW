@@ -50,20 +50,18 @@ if (!$stmt) {
 
      $data1 = mysqli_fetch_array($perintah);
 
-              //menampilkan data
-    //menampilkan data
-      echo "<tr class='tr-id-".$data1['id']."'>
+  echo "<tr class='tr-id-".$data1['id']."' >
       <td>". $data1['nama_daftar_akun'] ."</td>
       <td data-dari-akun ='(". $data1['kode_pelanggan'] .") ". $data1['nama_pelanggan'] ."'>(". $data1['kode_pelanggan'] .") ". $data1['nama_pelanggan'] ."</td>
 
-      <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' autofocus='' data-jumlah='".$data1['jumlah']."'> </td>
+      <td class='edit-jumlah' data-id='".$data1['id']."'><span id='text-jumlah-".$data1['id']."'>". rp($data1['jumlah']) ."</span> <input type='hidden' id='input-jumlah-".$data1['id']."' value='".$data1['jumlah']."' class='input-jumlah' data-id='".$data1['id']."' data-ke_akun='".$data1['ke_akun']."' autofocus='' data-jumlah='".$data1['jumlah']."'  onkeydown='return numbersonly(this, event);' onkeyup='javascript:tandaPemisahTitik(this);'> </td>
 
       <td>". $data1['tanggal'] ."</td>
       <td>". $data1['jam'] ."</td>
       <td>". $data1['keterangan'] ."</td>
       <td>". $data1['user'] ."</td>
 
-      <td> <button class='btn btn-danger btn-hapus-tbs btn-sm' id='btn-hapus-".$data1['id']."' data-id='". $data1['id'] ."' data-jumlah='". $data1['jumlah'] ."' data-dari='". $data1['dari_akun'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button>  </td> 
+      <td> <button class='btn btn-danger btn-sm btn-hapus-tbs' id='btn-hapus-".$data1['id']."' data-id='". $data1['id'] ."' data-jumlah='". $data1['jumlah'] ."' data-dari='". $data1['dari_akun'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button>  </td> 
       
       </tr>";
     
