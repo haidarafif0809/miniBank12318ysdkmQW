@@ -27,7 +27,7 @@ tr:nth-child(even){background-color: #f2f2f2}
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Konfirmsi Hapus Data Kas Masuk</h4>
+        <h4 class="modal-title">Konfirmsi Hapus Data Penyetoran</h4>
       </div>
 
       <div class="modal-body">
@@ -66,7 +66,7 @@ tr:nth-child(even){background-color: #f2f2f2}
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Data Kas Masuk</h4>
+        <h4 class="modal-title">Edit Data Penyetoran</h4>
       </div>
       <div class="modal-body">
   <form role="form">
@@ -182,44 +182,7 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
 		</thead>
 		
 		<tbody>
-		<?php
-
-			//menyimpan data sementara yang ada pada $perintah
-			while ($data1 = mysqli_fetch_array($perintah))
-			{
-				//menampilkan data
-			echo "<tr class='tr-id-".$data1['id']."'>
-			<td>". $data1['no_faktur'] ."</td>			
-			<td>". $data1['nama_daftar_akun'] ."</td>
-			<td>Rp. ". rp($data1['jumlah']) ."</td>			
-			<td>". $data1['tanggal'] ."</td>
-			<td>". $data1['jam'] ."</td>
-			<td>". $data1['user'] ."</td>
-			<td>". $data1['petugas_edit'] ."</td>
-			<td>".$data1['tanggal_edit']."  ".$data1['jam_edit']."</td>
-
-	<td> <a href='cetak_data_penyetoran.php?no_faktur=".$data1['no_faktur']."' id='cetak' class='btn btn-warning btn-floating' target='blank'><i class='fa fa-print'> </i></a> </td>
-
-			<td> <button class=' btn btn-info detail' no_faktur='". $data1['no_faktur'] ."'> <span class='glyphicon glyphicon-th-list'></span> Detail </button> </td>";
-
-if ($kas_masuk['kas_masuk_edit'] > 0) {
-
-			echo "<td> <a href='proses_edit_data_penyetoran.php?no_faktur=". $data1['no_faktur']."&nama_daftar_akun=". $data1['nama_daftar_akun']."' class='btn btn-success'> <span class='glyphicon glyphicon-edit'></span> Edit </a> </td>";
-		}
-
-if ($kas_masuk['kas_masuk_hapus'] > 0) {
-			echo "<td> <button class=' btn btn-danger btn-hapus' data-id='". $data1['id'] ."' no-faktur='". $data1['no_faktur'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button> </td> 
-
-
-
-			</tr>";
-			}
-
-		}
-
-		//Untuk Memutuskan Koneksi Ke Database
-		mysqli_close($db);   
-		?>
+		
 		</tbody>
 
 	</table>
@@ -234,7 +197,7 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
 
 
 
-<!--
+
 <script type="text/javascript" language="javascript" >
       $(document).ready(function() {
         var dataTable = $('#tableuser').DataTable( {
@@ -253,13 +216,11 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
             }
           },
               "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-              $(nRow).attr('class','tr-id-'+aData[11]+'');
+              $(nRow).attr('class','tr-id-'+aData[13]+'');
             },
         } );
       } );
     </script>
--->
-
 
 <script>
 		
@@ -268,7 +229,8 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
 		$('#tableuser').DataTable();
 		});
 		
-		$(".detail").click(function(){
+		$(document).on('click', '.detail', function (e) {
+
 		var no_faktur = $(this).attr('no_faktur');
 		
 		
@@ -286,9 +248,9 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
 </script>
 	
 <script type="text/javascript">
-			
 //fungsi hapus data 
-		$(".btn-hapus").click(function(){
+		$(document).on('click', '.btn-hapus', function (e) {
+
 		var no_faktur = $(this).attr("no-faktur");
 		var id = $(this).attr("data-id");
 		$("#hapus_no_faktur").val(no_faktur);
