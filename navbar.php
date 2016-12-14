@@ -199,11 +199,8 @@ if ($lihat['pembayaran_hutang_lihat'] > 0){
                                 echo '<li><a href="kas_mutasi.php" class="waves-effect">Kas Mutasi</a></li>';
 }
 
-<<<<<<< Updated upstream
 echo"<li><a href=data_penyetoran.php class='waves-effect'>Penyetoran Tabungan</a></li>";
 
-=======
->>>>>>> Stashed changes
 echo"<li><a href=penarikan.php class='waves-effect'>Penarikan</a></li>";
 
  if ($lihat['transaksi_kas_lihat'] > 0){
