@@ -5,10 +5,9 @@ include 'db.php';
 $session_id = $_POST['session_id'];
 $tanggal_sekarang = date('Y-m-d');
 $jam_sekarang = date('H:i:s');
-<<<<<<< Updated upstream
-=======
+
 $tahun_terakhir = substr($tahun_sekarang, 2);
->>>>>>> Stashed changes
+
 $tanggal = stringdoang($_POST['tanggal']);
    
 $perintah = $db->prepare("INSERT INTO tbs_penyetoran (session_id,keterangan,dari_akun,ke_akun, jumlah,tanggal,jam,user) VALUES (?,?,?,?,?,?,?,?)");
