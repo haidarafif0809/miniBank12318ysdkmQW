@@ -154,7 +154,10 @@ mysqli_close($db);
                                     
                                     var id = $(this).attr("data-id");
                                     var input_jumlah = $(this).val();
-                                    
+                                     if (input_jumlah == '')
+                                    {
+                                      input_jumlah = 0;
+                                    }
                                     var jumlah_lama = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($(this).attr("data-jumlah")))));
                                     var total_lama = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlahtotal").val()))));
                                     
@@ -164,7 +167,20 @@ mysqli_close($db);
                                     {
                                     total_lama = 0;
                                     }
-                                    
+                                                      
+                    if (input_jumlah == 0)
+                    {
+                      alert("Jumlah Penyetoran Tidak Boleh Enol Atau Kosong");
+
+                        $("#input-jumlah-"+id).attr("data-jumlah", jumlah_lama);
+                        $("#btn-hapus-"+id).attr("data-jumlah", jumlah_lama);
+                        $("#text-jumlah-"+id+"").show();
+                        $("#text-jumlah-"+id+"").text(tandaPemisahTitik(jumlah_lama));
+                        $("#input-jumlah-"+id+"").attr("type", "hidden");
+                        $("#input-jumlah-"+id+"").val(tandaPemisahTitik(jumlah_lama));                                 
+                    }
+                    else
+                    {
                                     var subtotal = parseInt(total_lama,10) - parseInt(jumlah_lama,10) + parseInt(input_jumlah,10);
                                     
                                     
@@ -178,7 +194,7 @@ mysqli_close($db);
                                     $("#input-jumlah-"+id+"").attr("type", "hidden");           
                                     
                                     });
-                                    
+                      }              
                                     
                                     
                                     });

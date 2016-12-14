@@ -13,11 +13,8 @@ $query = $db->query("SELECT * FROM pelanggan");
 
  ?>
 
-
-
-
 <div class="container"> <!-- start of container -->
-<h3><b>DATA PELANGGAN</b></h3> <hr>
+<h3><b>DATA NASABAH</b></h3> <hr>
 <!-- Trigger the modal with a button -->
 
 <?php 
@@ -30,7 +27,7 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 
     if ($pelanggan > 0){
 
-    	echo '<button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus"> </i> PELANGGAN</button>';
+    	echo '<button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus"> </i> Nasabah</button>';
 
     }
 
@@ -54,11 +51,11 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 <form role="form">
 		<div class="form-group">
 					
-					<label> Kode Pelanggan </label><br>
+					<label> No Rekening </label><br>
 					<input type="text" name="kode_pelanggan" id="kode_pelanggan" class="form-control" autocomplete="off" required="" >
 					
 
-					<label> Nama Pelanggan </label><br>
+					<label> Nama Nasabah </label><br>
 					<input type="text" name="nama" id="nama_pelanggan" class="form-control" autocomplete="off" required="" >
 
 					<label> Tanggal Lahir </label><br>
@@ -75,13 +72,13 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 					<label> Wilayah </label><br>
 					<input type="text" name="wilayah" id="wilayah" class="form-control" autocomplete="off" required="" >
 
-					<label> Level Harga </label><br>
+					<label> Kelas </label><br>
 					<select type="text" name="level_harga" id="level_harga" class="form-control" required="" >
 
 					<option value="">--SILAKAN PILIH--</option>
-					<option>Level 1</option>
-					<option>Level 2</option>
-					<option>Level 3</option>
+					<option>Kelas 1</option>
+					<option>Kelas 2</option>
+					<option>Kelas 3</option>
 
 
 					</select>
@@ -169,7 +166,7 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Konfirmasi Hapus Data Pelanggan</h4>
+        <h4 class="modal-title">Konfirmasi Hapus Data Nasabah</h4>
       </div>
 
       <div class="modal-body">
@@ -177,7 +174,7 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
    <p>Apakah Anda yakin Ingin Menghapus Data ini ?</p>
    <form >
     <div class="form-group">
-    <label> Nama Pelanggan :</label>
+    <label> Nama Nasabah :</label>
      <input type="text" id="data_pelanggan" class="form-control" readonly=""> 
      <input type="hidden" id="id_hapus" class="form-control" > 
     </div>
@@ -209,15 +206,15 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Edit Data Pelanggan</h4>
+        <h4 class="modal-title">Edit Data Nasabah</h4>
       </div>
       <div class="modal-body">
   <form role="form">
 					<div class="form-group">
-					<label> Kode Pelanggan </label><br>
+					<label> No Rekening </label><br>
 					<input type="text" name="kode_edit" id="edit_kode" class="form-control" autocomplete="off" required="" >
 						
-					<label> Nama Pelanggan </label><br>
+					<label> Nama Nasabah </label><br>
 					<input type="text" name="nama_edit" id="edit_nama" class="form-control" autocomplete="off" required="" >
 
 					<label> Tanggal Lahir </label><br>
@@ -233,13 +230,13 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 					<label> Wilayah </label><br>
 					<input type="text" name="wilayah" id="edit_wilayah" class="form-control" autocomplete="off" required="" >
 
-					<label> Level Harga </label><br>
+					<label> Kelas </label><br>
 					<select type="text" name="edit_level_harga" id="edit_level_harga" class="form-control" required="" >
 
 					<option value="">--SILAKAN PILIH--</option>
-					<option>Level 1</option>
-					<option>Level 2</option>
-					<option>Level 3</option>
+					<option>Kelas 1</option>
+					<option>Kelas 2</option>
+					<option>Kelas 3</option>
 
 
 					</select>
@@ -281,9 +278,9 @@ tr:nth-child(even){background-color: #f2f2f2}
 <table id="tableuser" class="table table-bordered">
 		<thead>
 			
-			<th style='background-color: #4CAF50; color: white'> Kode Pelanggan </th>
-			<th style='background-color: #4CAF50; color: white'> Nama Pelanggan </th>
-			<th style='background-color: #4CAF50; color: white'> Level Harga </th>
+			<th style='background-color: #4CAF50; color: white'> No Rekening </th>
+			<th style='background-color: #4CAF50; color: white'> Nama Nasabah </th>
+			<th style='background-color: #4CAF50; color: white'> Kelas </th>
 			<th style='background-color: #4CAF50; color: white'> Tgl. Lahir </th>
 			<th style='background-color: #4CAF50; color: white'> Nomor Telp </th>
 			<th style='background-color: #4CAF50; color: white'> E-mail </th>

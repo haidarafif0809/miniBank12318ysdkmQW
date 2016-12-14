@@ -178,9 +178,7 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
 			echo "<th style='background-color: #4CAF50; color:white'> Hapus </th>";
 }
 ?>
-			
-			
-			
+							
 		</thead>
 		
 		<tbody>
@@ -233,6 +231,35 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
 
 
 </div><!--end of container-->
+
+
+
+<!--
+<script type="text/javascript" language="javascript" >
+      $(document).ready(function() {
+        var dataTable = $('#tableuser').DataTable( {
+          "processing": true,
+          "serverSide": true,
+          "ajax":{
+            url :"show_data_penyetoran.php", // json datasource
+            type: "post",  // method  , by default get
+            error: function(){  // error handling
+              $(".tbody").html("");
+
+             $("#tableuser").append('<tbody class="tbody"><tr><th colspan="3">Tidak Ada Data Yang Ditemukan</th></tr></tbody>');
+
+              $("#tableuser_processing").css("display","none");
+              
+            }
+          },
+              "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+              $(nRow).attr('class','tr-id-'+aData[11]+'');
+            },
+        } );
+      } );
+    </script>
+-->
+
 
 <script>
 		

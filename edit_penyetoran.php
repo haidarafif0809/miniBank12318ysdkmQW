@@ -146,14 +146,12 @@ $ambil1 = mysqli_fetch_array($query10);
           </div>
 
 </div> <!-- tag penutup div row -->
-
 <div class="row">
  <div class="card card-block">
-          <div class="form-group col-sm-3">
-          <label> Dari Akun </label><br>
-          <select type="text" name="dari_akun" id="dariakun" class="form-control" required="" >
+        <div class="form-group col-sm-3">
+        <label> Dari Akun </label><br><br>
+        <select type="text" name="dari_akun" id="dariakun" class="form-control chosen" required="" >
           <option value="">--SILAKAN PILIH--</option>
-
            <?php 
 
     
@@ -199,7 +197,6 @@ $ambil1 = mysqli_fetch_array($query10);
           <label> Ke Akun </label><br>
           <select type="text" name="ke_akun" id="keakun" class="form-control" required="">
           <option value="">--SILAKAN PILIH--</option>
-
            <?php 
 
     
@@ -327,8 +324,8 @@ mysqli_close($db);
          <b><input type="text" name="jumlah" id="jumlahtotal" readonly="" placeholder="Jumlah Total" class="form-control"></b> 
           </div>
 
-          
-      <button type="submit" id="submit_kas_masuk" class="btn btn-info"> <span class='glyphicon glyphicon-ok-sign'></span> Submit </a> </button>
+          <br>
+      <button type="submit" id="submit_kas_masuk" class="btn btn-info"> <i class='fa fa-send'></i> Submit </button>
           
 </div> <!-- tag penutup div row-->
 
@@ -342,6 +339,12 @@ $(document).ready(function(){
     $('#tableuser').DataTable();
 });
 
+</script>
+
+<script type="text/javascript">
+      
+$(".chosen").chosen({no_results_text: "Maaf, Data Tidak Ada!"});  
+      
 </script>
 
 <script type="text/javascript">
@@ -643,7 +646,10 @@ $("#alert_berhasil").hide();
                                     
                                     var id = $(this).attr("data-id");
                                     var input_jumlah = $(this).val();
-                                    
+                                     if (input_jumlah == '')
+                                    {
+                                      input_jumlah = 0;
+                                    }
                                     var jumlah_lama = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($(this).attr("data-jumlah")))));
                                     var total_lama = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlahtotal").val()))));
                                     
@@ -653,7 +659,19 @@ $("#alert_berhasil").hide();
                                     {
                                     total_lama = 0;
                                     }
-                                    
+                  if (input_jumlah == 0)
+                    {
+                      alert("Jumlah Penyetoran Tidak Boleh Enol Atau Kosong");
+
+                        $("#input-jumlah-"+id).attr("data-jumlah", jumlah_lama);
+                        $("#btn-hapus-"+id).attr("data-jumlah", jumlah_lama);
+                        $("#text-jumlah-"+id+"").show();
+                        $("#text-jumlah-"+id+"").text(tandaPemisahTitik(jumlah_lama));
+                        $("#input-jumlah-"+id+"").attr("type", "hidden");
+                        $("#input-jumlah-"+id+"").val(tandaPemisahTitik(jumlah_lama));                                 
+                    }
+                    else
+                    { 
                                     var subtotal = parseInt(total_lama,10) - parseInt(jumlah_lama,10) + parseInt(input_jumlah,10);
                                     
                                     
@@ -669,7 +687,7 @@ $("#alert_berhasil").hide();
                                     
                                     });
                                     
-                                    
+                       }             
                                     
                                     });
 
