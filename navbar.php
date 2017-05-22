@@ -267,7 +267,7 @@ if ($lihat['retur_lihat'] > 0){
                         </div>
                     </li>';
 }
-*/
+
  if ($lihat['akuntansi_lihat'] > 0){
                 echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-balance-scale"></i> Akuntansi <i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
