@@ -83,6 +83,9 @@ if ($lihat['user_lihat'] > 0){
                                 echo '<li><a href="user.php" class="waves-effect">User</a></li>';
 }
 
+echo"<li><a href=jurusan.php class='waves-effect'>Jurusan</a></li>";
+
+
 if ($lihat['jabatan_lihat'] > 0){                               
                                 echo '<li><a href="jabatan.php" class="waves-effect">Jabatan</a></li>';
 }
@@ -96,7 +99,7 @@ if ($lihat['suplier_lihat'] > 0){
 }
 */
 if ($lihat['pelanggan_lihat'] > 0){
-                                echo '<li><a href="pelanggan.php" class="waves-effect">Pelanggan</a></li>';
+                                echo '<li><a href="pelanggan.php" class="waves-effect">Nasabah</a></li>';
 }
 /*
 if ($lihat['item_lihat'] > 0){
@@ -304,13 +307,15 @@ if ($lihat['akuntansi_lihat'] > 0){
                         </div>
                     </li>';
 }
-/*
+*/
  if ($lihat['laporan_lihat'] > 0){
                 echo '<li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-book"></i> Laporan <i class="fa fa-angle-down rotate-icon"></i></a>
                         <div class="collapsible-body">
                             <ul>';
 }
 
+echo"<li><a href=laporan_tabungan_rekening.php class='waves-effect'>Saldo Nasabah</a></li>";
+/*
  if ($lihat['laporan_penjualan_lihat'] > 0){
                             echo '<li><a href="lap_penjualan.php" class="waves-effect">Lap. Penjualan</a></li>';
 }
@@ -354,6 +359,7 @@ if ($lihat['akuntansi_lihat'] > 0){
  if ($lihat['laporan_komisi_faktur_lihat'] > 0){
                             echo '<li><a href="laporan_fee_faktur.php" class="waves-effect">Lap. Komisi / Faktur </a></li>';
 }
+*/
 
 if ($lihat['laporan_lihat'] > 0){
                         echo '</ul>
@@ -361,10 +367,11 @@ if ($lihat['laporan_lihat'] > 0){
                     </li>';
 }
 
-*/
+/*
  if ($lihat['kas_lihat'] > 0){
                 echo '<li><a href="kas.php" class="waves-effect"> <i class="fa fa-money"></i> Posisi Kas </a></li>';
 }
+*/
 ?>
                 <li><a href="https://www.andaglos.com" class="waves-effect"> <i class="fa fa-envelope"></i> Contact Us </a></li>
                     
@@ -416,7 +423,8 @@ if ($lihat['laporan_lihat'] > 0){
                     <a href="https://www.andaglos.com" class="nav-link"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Contact Us</span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link"><i class="fa fa-user"></i> <span class="hidden-sm-down"><?php echo $_SESSION['nama'];?></span>
+                    <a class="nav-link"><i class="fa fa-user"></i> <span class="hidden-sm-down">
+                    <?php echo $_SESSION['nama'];?></span>
                     </a>
 
                 </li>
