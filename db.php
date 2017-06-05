@@ -3,14 +3,14 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "minibank";
+$dbname = "db_smk4";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
 
 // perintah untuk mengkoneksikan php ke database mysql
- /* $db = new mysqli('localhost','demoo','asdakgnadjfbdfnkb34r3cff3','minibank_smk4bl');*/
+ /* $db = new mysqli('localhost','demoo','asdakgnadjfbdfnkb34r3cff3','db_smk4_smk4bl');*/
 
- $db = new mysqli('localhost','root','','minibank');  
+ $db = new mysqli('localhost','root','','db_smk4');  
 
 // Check connection
 if ($db->connect_error) {

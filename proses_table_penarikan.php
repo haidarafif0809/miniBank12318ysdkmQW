@@ -76,22 +76,22 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 			$nestedData[] = $row["waktu_edit"];
 	
 
-$pilih_akses_kas_keluar = $db->query("SELECT * FROM otoritas_kas_keluar WHERE id_otoritas = '$_SESSION[otoritas_id]'");
-$kas_keluar = mysqli_fetch_array($pilih_akses_kas_keluar);
+$pilih_akses = $db->query("SELECT penarikan_edit, penarikan_hapus FROM otoritas_transaksi_kas WHERE id_otoritas = '$_SESSION[otoritas_id]'");
+$data_akses = mysqli_fetch_array($pilih_akses);
 
 
-		   $nestedData[] = "<a style='width: 65px;' class='btn btn-primary' href='cetak_penarikan.php?no_faktur=".$row['no_faktur']."' target='blank'> <i class='fa fa-print'></i> &nbsp;Cetak </a> ";
+		   $nestedData[] = "<a style='width: 65px;' class='btn btn-primary btn-sm' href='cetak_penarikan.php?no_faktur=".$row['no_faktur']."' target='blank'> <i class='fa fa-print'></i> &nbsp;Cetak </a> ";
 
-		  $nestedData[] = "<button style='width: 65px;' class='btn btn-info detail' no_faktur='". $row['no_faktur'] ."'> <i class='fa fa-th-list'></i> Detail </button> ";
+		  $nestedData[] = "<button style='width: 65px;' class='btn btn-info detail btn-sm' no_faktur='". $row['no_faktur'] ."'> <i class='fa fa-th-list'></i> Detail </button> ";
 
-if ($kas_keluar['kas_keluar_edit'] > 0) {
+if ($data_akses['penarikan_edit'] > 0) {
 
-			$nestedData[] = "<a style='width: 44px;' href='proses_edit_penarikan.php?no_faktur=". $row['no_faktur']."&nama_daftar_akun=". $row['nama_daftar_akun']."' class='btn btn-success'> <i class='fa fa-edit'></i>Edit</a>";
+			$nestedData[] = "<a style='width: 44px;' href='proses_edit_penarikan.php?no_faktur=". $row['no_faktur']."&nama_daftar_akun=". $row['nama_daftar_akun']."' class='btn btn-success btn-sm'> <i class='fa fa-edit'></i>Edit</a>";
 		}
 
-if ($kas_keluar['kas_keluar_hapus'] > 0) {
+if ($data_akses['penarikan_hapus'] > 0) {
 
-			$nestedData[] = "<button style='width: 65px;' class='btn btn-danger btn-hapus' data-id='". $row['id'] ."' no-faktur='". $row['no_faktur'] ."'><i class='fa fa-trash'> </i> Hapus </button> ";
+			$nestedData[] = "<button style='width: 65px;' class='btn btn-danger btn-hapus btn-sm' data-id='". $row['id'] ."' no-faktur='". $row['no_faktur'] ."'><i class='fa fa-trash'> </i> Hapus </button> ";
 		}
 
 			$nestedData[] = $row["id"];

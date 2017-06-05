@@ -63,20 +63,20 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData[] = $row["petugas_edit"];
 	$nestedData[] = " ".$row['tanggal_edit']." ".$row['jam_edit']." ";
 
-$pilih_akses_kas_masuk = $db->query("SELECT * FROM otoritas_kas_masuk WHERE id_otoritas = '$_SESSION[otoritas_id]'");
-$kas_masuk = mysqli_fetch_array($pilih_akses_kas_masuk);
+$pilih_akses = $db->query("SELECT penyetoran_edit, penyetoran_hapus FROM otoritas_transaksi_kas WHERE id_otoritas = '$_SESSION[otoritas_id]'");
+$data_akses = mysqli_fetch_array($pilih_akses);
 
-$nestedData[] = "<td> <a href='cetak_data_penyetoran.php?no_faktur=".$row['no_faktur']."' id='cetak' class='btn btn-warning btn-floating' target='blank'><i class='fa fa-print'> </i></a> </td>";
+$nestedData[] = "<a style='width: 65px;' class='btn btn-primary btn-sm' href='cetak_data_penyetoran.php?no_faktur=".$row['no_faktur']."' target='blank'> <i class='fa fa-print'></i> &nbsp;Cetak </a> ";
 
-$nestedData[] = "<button class=' btn btn-info detail' no_faktur='". $row['no_faktur'] ."'> <span class='glyphicon glyphicon-th-list'></span> Detail </button>";
+$nestedData[] = "<button class=' btn btn-info detail btn-sm' no_faktur='". $row['no_faktur'] ."'> <span class='glyphicon glyphicon-th-list'></span> Detail </button>";
 
-if ($kas_masuk['kas_masuk_edit'] == 1) {
+if ($data_akses['penyetoran_edit'] == 1) {
 
-	$nestedData[] = "<a href='proses_edit_data_penyetoran.php?no_faktur=". $row['no_faktur']."&nama_daftar_akun=". $row['nama_daftar_akun']."' class='btn btn-success'> <span class='glyphicon glyphicon-edit'></span> Edit </a>";
+	$nestedData[] = "<a href='proses_edit_data_penyetoran.php?no_faktur=". $row['no_faktur']."&nama_daftar_akun=". $row['nama_daftar_akun']."' class='btn btn-success btn-sm'> <span class='glyphicon glyphicon-edit'></span> Edit </a>";
 		}
 
-if ($kas_masuk['kas_masuk_hapus'] == 1) {
-	$nestedData[] = "<button class=' btn btn-danger btn-hapus' data-id='". $row['id'] ."' no-faktur='". $row['no_faktur'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button>";
+if ($data_akses['penyetoran_hapus'] == 1) {
+	$nestedData[] = "<button class=' btn btn-danger btn-hapus btn-sm' data-id='". $row['id'] ."' no-faktur='". $row['no_faktur'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button>";
 }
 
 	$nestedData[] = $row["id"];

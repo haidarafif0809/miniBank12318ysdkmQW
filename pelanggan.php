@@ -345,32 +345,28 @@ $pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
 			while ($data = mysqli_fetch_array($query))
 			{
 				//menampilkan data
-		$select_jurusan = $db->query("SELECT nama FROM jurusan WHERE id = '$data[jurusan]'");
-        $taked = mysqli_fetch_array($select_jurusan);
+				$select_jurusan = $db->query("SELECT nama FROM jurusan WHERE id = '$data[jurusan]'");
+				$taked = mysqli_fetch_array($select_jurusan);
+				
+				$select = $db->query("SELECT SUM(jumlah) AS total_tabungan FROM detail_penyetoran WHERE dari_akun = '$data[id]' ");
+				$jumlah = mysqli_fetch_array($select);
+				
+				$select1 = $db->query("SELECT SUM(jumlah) AS total_tabungan1 FROM detail_penarikan WHERE ke_akun = '$data[id]' ");
+				$jumlah1 = mysqli_fetch_array($select1);
+				
+				
+				$total = $jumlah['total_tabungan'] - $jumlah1['total_tabungan1'];
 
-$select = $db->query("SELECT SUM(jumlah) AS total_tabungan FROM detail_penyetoran WHERE dari_akun = '$data[id]' ");
-$jumlah = mysqli_fetch_array($select);
-
-$select1 = $db->query("SELECT SUM(jumlah) AS total_tabungan1 FROM detail_penarikan WHERE ke_akun = '$data[id]' ");
-$jumlah1 = mysqli_fetch_array($select1);
-
-
- $total = $jumlah['total_tabungan'] - $jumlah1['total_tabungan1'];
-			echo "<tr>
-			
-			<td>". $data['kode_pelanggan'] ."</td>
-			<td>". $data['nama_pelanggan'] ."</td>
-			<td>". $data['level_harga'] ."</td>
-			<td>". tanggal($data['tgl_lahir']) ."</td>
-			<td>". $data['no_telp'] ."</td>
-			<td>". $data['e_mail'] ."</td>
-			<td>". $data['wilayah'] ."</td>
-			<td>". $taked['nama'] ."</td>
-			<td>".rp($total)."</td>";
-			
-
-
-include 'db.php';
+			echo "<tr>			
+					<td>". $data['kode_pelanggan'] ."</td>
+					<td>". $data['nama_pelanggan'] ."</td>
+					<td>". $data['level_harga'] ."</td>
+					<td>". tanggal($data['tgl_lahir']) ."</td>
+					<td>". $data['no_telp'] ."</td>
+					<td>". $data['e_mail'] ."</td>
+					<td>". $data['wilayah'] ."</td>
+					<td>". $taked['nama'] ."</td>
+					<td>".rp($total)."</td>";
 
 $pilih_akses_pelanggan_hapus = $db->query("SELECT pelanggan_hapus FROM otoritas_master_data WHERE id_otoritas = '$_SESSION[otoritas_id]' AND pelanggan_hapus = '1'");
 $pelanggan_hapus = mysqli_num_rows($pilih_akses_pelanggan_hapus);
@@ -379,7 +375,7 @@ $pelanggan_hapus = mysqli_num_rows($pilih_akses_pelanggan_hapus);
     if ($pelanggan_hapus > 0){
 
 
-			echo "<td> <button class='btn btn-danger btn-hapus' data-id='". $data['id'] ."' data-pelanggan='". $data['nama_pelanggan'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button> </td>";
+			echo "<td> <button class='btn btn-danger btn-hapus btn-sm' data-id='". $data['id'] ."' data-pelanggan='". $data['nama_pelanggan'] ."' data-kode='". $data['kode_pelanggan'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button> </td>";
 
 		}
 
@@ -390,7 +386,7 @@ $pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
 
 
     if ($pelanggan_edit > 0){
-			echo "<td> <button class='btn btn-info btn-edit' data-pelanggan='". $data['nama_pelanggan'] ."' data-kode='". $data['kode_pelanggan'] ."' data-tanggal='". $data['tgl_lahir'] ."' data-nomor='". $data['no_telp'] ."' data-email='". $data['e_mail'] ."' data-wilayah='". $data['wilayah'] ."' data-level-harga='". $data['level_harga'] ."' data-jurusan='". $data['jurusan'] ."' data-id='". $data['id'] ."'> <span class='glyphicon glyphicon-edit'> </span> Edit </button> </td>";
+			echo "<td> <button class='btn btn-info btn-edit btn-sm' data-pelanggan='". $data['nama_pelanggan'] ."' data-kode='". $data['kode_pelanggan'] ."' data-tanggal='". $data['tgl_lahir'] ."' data-nomor='". $data['no_telp'] ."' data-email='". $data['e_mail'] ."' data-wilayah='". $data['wilayah'] ."' data-level-harga='". $data['level_harga'] ."' data-jurusan='". $data['jurusan'] ."' data-id='". $data['id'] ."'> <span class='glyphicon glyphicon-edit'> </span> Edit </button> </td>";
 		}
 
 			echo"</tr>";
@@ -408,7 +404,13 @@ mysqli_close($db);
 </div>
 
 
-   <i><p style="color:red;"> * Note :Untuk Login dengan nasabah</p><p>- Username : No Rekening <br>- Password : 1234 </p></i>
+   <i><p style="color:red;"> <b>**Note : Login Awal (Nasabah)</b></i>
+   <table>
+	  <tbody>
+	    <tr><td>User</td> <td>:&nbsp;</td><td>No. Rekening</td></tr>
+	    <tr><td>Password</td> <td>:&nbsp;</td><td>1234</td></tr>
+	  </tbody>
+	</table>
 
 
 </div> <!--end of container-->
@@ -540,12 +542,23 @@ $(document).ready(function(){
 					// end fungsi tambah 
 
 					//fungsi hapus data 
-								  $(document).on('click', '.btn-hapus', function (e) {
+								$(document).on('click', '.btn-hapus', function (e) {
 								var nama_pelanggan = $(this).attr("data-pelanggan");
+								var kode = $(this).attr("data-kode");
 								var id = $(this).attr("data-id");
 								$("#data_pelanggan").val(nama_pelanggan);
 								$("#id_hapus").val(id);
-								$("#modal_hapus").modal('show');
+
+								$.post("cek_hapus_pelanggan.php",{id:id},function(data){
+									if (data == 1) {
+
+										alert("Nasabah a/n '"+nama_pelanggan+"' Tidak Bisa Dihapus. Karena Sudah Ada Penyetoran atau Penarikan Tabungan.");									
+									}
+									else{
+										$("#modal_hapus").modal('show');
+									}
+								});
+								
 								
 								
 								});

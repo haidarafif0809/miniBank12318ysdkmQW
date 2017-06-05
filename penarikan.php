@@ -133,12 +133,11 @@ include 'db.php';
 </div>
 
 <?php
-include 'db.php';
 
-$pilih_akses_kas_keluar = $db->query("SELECT * FROM otoritas_kas_keluar WHERE id_otoritas = '$_SESSION[otoritas_id]'");
-$kas_keluar = mysqli_fetch_array($pilih_akses_kas_keluar);
+$pilih_akses = $db->query("SELECT penarikan_tambah, penarikan_edit, penarikan_hapus FROM otoritas_transaksi_kas WHERE id_otoritas = '$_SESSION[otoritas_id]'");
+$data_akses = mysqli_fetch_array($pilih_akses);
 
-if ($kas_keluar['kas_keluar_tambah'] > 0) {
+if ($data_akses['penarikan_tambah'] > 0) {
 
 echo '<a href="form_penarikan.php"  class="btn btn-info"><i class="fa fa-plus"></i> PENARIKAN</a>';
 }
@@ -147,7 +146,7 @@ echo '<a href="form_penarikan.php"  class="btn btn-info"><i class="fa fa-plus"><
 
 <div class="table-responsive"><!--membuat agar ada garis pada tabel disetiap kolom-->
 <span id="tabel-baru">
-<table id="table-tarik" class="table table-bordered">
+<table id="table-tarik" class="table table-bordered table-sm">
 		<thead>
 			<th style='background-color: #4CAF50; color:white'> Nomor Faktur </th>
 			<th style='background-color: #4CAF50; color:white'> Dari Akun </th>
@@ -161,14 +160,14 @@ echo '<a href="form_penarikan.php"  class="btn btn-info"><i class="fa fa-plus"><
 			<th style='background-color: #4CAF50; color:white'> Detail </th>
 
 <?php
-if ($kas_keluar['kas_keluar_edit'] > 0) {
+if ($data_akses['penarikan_edit'] > 0) {
 
 			echo "<th style='background-color: #4CAF50; color:white'> Edit </th>";
 }
 ?>
 
 <?php
-if ($kas_keluar['kas_keluar_hapus'] > 0) {
+if ($data_akses['penarikan_hapus'] > 0) {
 
 			echo "<th style='background-color: #4CAF50; color:white'> Hapus </th>";
 }
