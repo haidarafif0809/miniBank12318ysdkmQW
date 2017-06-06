@@ -114,7 +114,7 @@ include 'db.php';
         <div class="col-sm-2">
           <label style="height: 25px; width:90%; font-size:20px;"> Total Saldo</label>
             <b><input type="text" style="height: 25px; width:90%; font-size:20px;" class="form-control" id="total_saldo" autocomplete="off" name="total_saldo" readonly=""></b>
-            <p> * Kode <br> 1.Penabungan <br> 2. Penarikan </p>
+            <p> * Kode <br> 1.Penyetoran <br> 2. Penarikan </p>
         </div>
 
 

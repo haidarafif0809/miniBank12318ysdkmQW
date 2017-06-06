@@ -173,7 +173,7 @@ mysqli_close($db);
     </tbody>
 
   </table>
-   <i><p> * Kode <br> 1.Penabungan <br> 2. Penarikan </p></i>
+   <i><p> * Kode <br> 1.Penyetoran <br> 2. Penarikan </p></i>
 
 <br>
 
