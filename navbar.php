@@ -125,11 +125,11 @@ if ($lihat['komisi_faktur_lihat'] > 0){
 if ($lihat['gudang_lihat'] > 0){
                                 echo '<li><a href="gudang.php" class="waves-effect">Gudang</a></li>';
 }
-
+*/
 if ($lihat['daftar_akun_lihat'] > 0){
-                                echo '<li><a href="daftar_akun.php?kategori=semua" class="waves-effect">Daftar Akun</a></li>';
+                                echo '<li><a href="daftar_akun.php" class="waves-effect">Akun Kas</a></li>';
 }
-
+/*
 if ($lihat['grup_akun_lihat'] > 0){
                                 echo '<li><a href="daftar_group_akun.php" class="waves-effect">Group Akun</a></li>';
 }
@@ -367,11 +367,11 @@ if ($lihat['laporan_lihat'] > 0){
                     </li>';
 }
 
-/*
+
  if ($lihat['kas_lihat'] > 0){
                 echo '<li><a href="kas.php" class="waves-effect"> <i class="fa fa-money"></i> Posisi Kas </a></li>';
 }
-*/
+
 ?>
                 <li><a href="https://www.andaglos.com" class="waves-effect"> <i class="fa fa-envelope"></i> Contact Us </a></li>
                     

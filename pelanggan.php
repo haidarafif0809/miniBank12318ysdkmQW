@@ -9,7 +9,6 @@ include 'db.php';
 
 
 //menampilkan seluruh data yang ada pada tabel pelanggan
-$query = $db->query("SELECT * FROM pelanggan");
 
  ?>
 
@@ -168,6 +167,42 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 
 
 
+<!-- Modal Reset data -->
+<div id="modal_reset" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Konfirmasi Reset Password Data Nasabah</h4>
+      </div>
+
+      <div class="modal-body">
+   
+   <p>Apakah Anda yakin Ingin Mengganti Password Data ini ?</p>
+ 
+     <input type="hidden" id="reset_id_hapus" class="form-control" > 
+
+   
+  <div class="alert alert-success" style="display:none">
+   <strong>Berhasil!</strong> Password Berhasil Di Reset
+  </div>
+ 
+
+     </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="btn_jadi_reset"><span class='glyphicon glyphicon-ok-sign'> </span> Ya</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal"><span class='glyphicon glyphicon-remove-sign'> </span> Batal</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end of modal reset data  -->
+
+
+
   <!-- Modal Hapus data -->
 <div id="modal_hapus" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -312,8 +347,6 @@ include 'db.php';
 
 $pilih_akses_pelanggan_hapus = $db->query("SELECT pelanggan_hapus FROM otoritas_master_data WHERE id_otoritas = '$_SESSION[otoritas_id]' AND pelanggan_hapus = '1'");
 $pelanggan_hapus = mysqli_num_rows($pilih_akses_pelanggan_hapus);
-
-
     if ($pelanggan_hapus > 0){
 
 			echo "<th style='background-color: #4CAF50; color: white'> Hapus </th>";
@@ -334,73 +367,10 @@ $pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
     }
 
  ?>
-			
+		 <th style='background-color: #4CAF50; color: white'> Reset</th>	
 			
 		</thead>
 		
-		<tbody>
-		<?php
-
-			//menyimpan data sementara yang ada pada $query
-			while ($data = mysqli_fetch_array($query))
-			{
-				//menampilkan data
-		$select_jurusan = $db->query("SELECT nama FROM jurusan WHERE id = '$data[jurusan]'");
-        $taked = mysqli_fetch_array($select_jurusan);
-
-$select = $db->query("SELECT SUM(jumlah) AS total_tabungan FROM detail_penyetoran WHERE dari_akun = '$data[id]' ");
-$jumlah = mysqli_fetch_array($select);
-
-$select1 = $db->query("SELECT SUM(jumlah) AS total_tabungan1 FROM detail_penarikan WHERE ke_akun = '$data[id]' ");
-$jumlah1 = mysqli_fetch_array($select1);
-
-
- $total = $jumlah['total_tabungan'] - $jumlah1['total_tabungan1'];
-			echo "<tr>
-			
-			<td>". $data['kode_pelanggan'] ."</td>
-			<td>". $data['nama_pelanggan'] ."</td>
-			<td>". $data['level_harga'] ."</td>
-			<td>". tanggal($data['tgl_lahir']) ."</td>
-			<td>". $data['no_telp'] ."</td>
-			<td>". $data['e_mail'] ."</td>
-			<td>". $data['wilayah'] ."</td>
-			<td>". $taked['nama'] ."</td>
-			<td>".rp($total)."</td>";
-			
-
-
-include 'db.php';
-
-$pilih_akses_pelanggan_hapus = $db->query("SELECT pelanggan_hapus FROM otoritas_master_data WHERE id_otoritas = '$_SESSION[otoritas_id]' AND pelanggan_hapus = '1'");
-$pelanggan_hapus = mysqli_num_rows($pilih_akses_pelanggan_hapus);
-
-
-    if ($pelanggan_hapus > 0){
-
-
-			echo "<td> <button class='btn btn-danger btn-hapus' data-id='". $data['id'] ."' data-pelanggan='". $data['nama_pelanggan'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button> </td>";
-
-		}
-
-include 'db.php';
-
-$pilih_akses_pelanggan_edit = $db->query("SELECT pelanggan_edit FROM otoritas_master_data WHERE id_otoritas = '$_SESSION[otoritas_id]' AND pelanggan_edit = '1'");
-$pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
-
-
-    if ($pelanggan_edit > 0){
-			echo "<td> <button class='btn btn-info btn-edit' data-pelanggan='". $data['nama_pelanggan'] ."' data-kode='". $data['kode_pelanggan'] ."' data-tanggal='". $data['tgl_lahir'] ."' data-nomor='". $data['no_telp'] ."' data-email='". $data['e_mail'] ."' data-wilayah='". $data['wilayah'] ."' data-level-harga='". $data['level_harga'] ."' data-jurusan='". $data['jurusan'] ."' data-id='". $data['id'] ."'> <span class='glyphicon glyphicon-edit'> </span> Edit </button> </td>";
-		}
-
-			echo"</tr>";
-			}
-
-//Untuk Memutuskan Koneksi Ke Database
-mysqli_close($db);   
-			
-		?>
-		</tbody>
 
 	</table>
 	</span>
@@ -427,14 +397,66 @@ mysqli_close($db);
 	</script>
 
 
+  <script type="text/javascript" language="javascript" >
+      $(document).ready(function() {
+        var dataTable = $('#tableuser').DataTable( {
+          "processing": true,
+          "serverSide": true,
+          "ajax":{
+            url :"datatable_pelanggan.php", // json datasource
+            type: "post",  // method  , by default get
+            error: function(){  // error handling
+              $(".tbody").html("");
+              $("#tableuser").append('<tbody class="tbody"><tr ><td colspan="3">No data found in the server</td></tr></tbody>');
+              $("#table_ri_processing").css("display","none");
+              
+            }
+          },
+
+           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+              $(nRow).attr('class','tr-id-'+aData[13]+'');
+
+},
+        } );
+      } );
+    </script>
+
 
 <script>
-//untuk menampilkan data tabel
-$(document).ready(function(){
-    $('.table').DataTable();
-});
+//fungsi reset password data 
+		$(document).on('click', '.btn-reset', function (e) {
 
-</script>
+		var reset_id = $(this).attr("data-reset-id");
+		$("#reset_id_hapus").val(reset_id);
+		$("#modal_reset").modal('show');
+		
+
+		
+		$(".alert-success").hide();
+		
+		});
+
+
+		$("#btn_jadi_reset").click(function(){
+		
+
+		var user_name = $("#reset_user_name").val();
+		var id = $("#reset_id_hapus").val();
+		$.post("reset_password.php",{id:id},function(data){
+		if (data != "") {
+		$(".alert-success").show();
+		$("#modal_reset").modal('hide');
+	var tableuser = $('#tableuser').DataTable();
+                  tableuser.draw();
+		
+		}
+	
+		});
+			
+		});
+</script>       
+
+
 
 <script type="text/javascript">
 
@@ -518,8 +540,9 @@ $(document).ready(function(){
 								
 								
 								$(".alert").show('fast');
-								$("#table_baru").load('tabel-pelanggan.php');
-								
+								var tableuser = $('#tableuser').DataTable();
+                 					 tableuser.draw();
+
 								setTimeout(tutupalert, 2000);
 								$(".modal").modal("hide");
 								}
@@ -631,7 +654,8 @@ $(document).ready(function(){
 
 								
 
-								$("#table_baru").load('tabel-pelanggan.php');
+									var tableuser = $('#tableuser').DataTable();
+                  					tableuser.draw();
 								$("#modal_edit").modal('hide');
 								
 								
