@@ -38,7 +38,7 @@
 
 
 <div class="form-group col-sm-2"> <!-- start otoritas pilih semua-->
-<label>Master Data</label><br>
+<label>Menu Master Data</label><br>
 
 <?php 
 
@@ -60,7 +60,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas set_akun -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas set_akun -->
 <label>Setting Akun</label><br>
 
 <?php 
@@ -81,7 +81,7 @@ else{
 </div> <!-- / of otoritas set_akun -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas pembayaran -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas pembayaran -->
 <label>Menu Pembayaran</label><br>
 
 <?php 
@@ -102,7 +102,7 @@ else{
 </div> <!-- / of otoritas pembayaran -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas persediaan -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas persediaan -->
 <label>Menu Persediaan</label><br>
 
 <?php 
@@ -146,7 +146,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas retur -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas retur -->
 <label>Menu Retur</label><br>
 
 <?php 
@@ -169,7 +169,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas posisi_kas -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas posisi_kas -->
 <label>Posisi Kas</label><br>
 
 <?php 
@@ -193,7 +193,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas akuntansi -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas akuntansi -->
 <label>Menu Akuntansi</label><br>
 
 <?php 
@@ -212,7 +212,7 @@ else{
 
 </div> <!-- / of otoritas akuntansi -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas laporan_mutasi_stok -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_mutasi_stok -->
 <label>Laporan Mutasi Stok</label><br>
 
 <?php 
@@ -250,7 +250,7 @@ else{
  ?>
 
 </div> <!-- / of otoritas laporan -->
-<div class="form-group col-sm-2"> <!-- start otoritas buku_besar -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas buku_besar -->
 <label>Buku Besar</label><br>
 
 <?php 
@@ -268,7 +268,7 @@ else{
  ?>
 
 </div> <!-- / of otoritas buku_besar -->
-<div class="form-group col-sm-2"> <!-- start otoritas laporan_jurnal -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_jurnal -->
 <label>Laporan Jurnal</label><br>
 
 <?php 
@@ -286,7 +286,7 @@ else{
  ?>
 
 </div> <!-- / of otoritas laporan_jurnal -->
-<div class="form-group col-sm-2"> <!-- start otoritas laporan_laba_kotor -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_laba_kotor -->
 <label>Laporan Laba Kotor</label><br>
 
 <?php 
@@ -304,7 +304,7 @@ else{
  ?>
 
 </div> <!-- / of otoritas laporan_laba_kotor -->
-<div class="form-group col-sm-2"> <!-- start otoritas laporan_laba_rugi -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_laba_rugi -->
 <label>Laporan Laba Rugi</label><br>
 
 <?php 
@@ -323,7 +323,7 @@ else{
 
 </div> <!-- / of otoritas laporan_laba_rugi -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas laporan_neraca -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_neraca -->
 <label>Laporan Neraca</label><br>
 
 <?php 
@@ -349,7 +349,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas penjualan -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas penjualan -->
 <label>Penjualan</label><br>
 
 <?php 
@@ -412,7 +412,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas pembelian -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas pembelian -->
 <label>Pembelian</label><br>
 
 <?php 
@@ -541,6 +541,68 @@ else{
 
 
 <div class="form-group col-sm-2"> <!-- start otoritas jabatan -->
+<label>Jurusan</label><br>
+
+<?php 
+
+if ($data_otoritas['jurusan_lihat'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_lihat" name="jurusan_lihat" checked="">
+    <label for="jurusan_lihat">Lihat</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_lihat" name="jurusan_lihat">
+    <label for="jurusan_lihat">Lihat</label> <br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['jurusan_tambah'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_tambah" name="jurusan_tambah" checked=""> 
+    <label for="jurusan_tambah">Tambah</label><br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_tambah" name="jurusan_tambah"> 
+    <label for="jurusan_tambah">Tambah</label><br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['jurusan_edit'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_edit" name="jurusan_edit" checked="">
+    <label for="jurusan_edit">Edit</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_edit" name="jurusan_edit">
+    <label for="jurusan_edit">Edit</label> <br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['jurusan_hapus'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_hapus" name="jurusan_hapus" checked="">
+    <label for="jurusan_hapus">Hapus</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="jurusan_hapus" name="jurusan_hapus">
+    <label for="jurusan_hapus">Hapus</label> <br>';  
+}
+
+ ?>
+
+</div> <!-- / of otoritas jabatan -->
+
+
+<div class="form-group col-sm-2"> <!-- start otoritas jabatan -->
 <label>Jabatan</label><br>
 
 <?php 
@@ -602,7 +664,7 @@ else{
 </div> <!-- / of otoritas jabatan -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas suplier -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas suplier -->
 <label>Suplier</label><br>
 
 <?php 
@@ -666,7 +728,7 @@ else{
 
 
 <div class="form-group col-sm-2"> <!-- start otoritas pelanggan -->
-<label>Pelanggan</label><br>
+<label>Nasabah</label><br>
 
 <?php 
 
@@ -728,7 +790,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas satuan -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas satuan -->
 <label>Satuan</label><br>
 
 <?php 
@@ -792,7 +854,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas item -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas item -->
 <label>Item</label><br>
 
 <?php 
@@ -854,7 +916,7 @@ else{
 </div> <!-- / of otoritas item -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas pemasukan -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas pemasukan -->
 <label>Pemasukan</label><br>
 
 <?php 
@@ -915,7 +977,7 @@ else{
 
 </div> <!-- / of otoritas pemasukan -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas pengeluaran -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas pengeluaran -->
 <label>Pengeluaran</label><br>
 
 <?php 
@@ -977,7 +1039,7 @@ else{
 </div> <!-- / of otoritas pengeluaran -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas komisi_faktur -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas komisi_faktur -->
 <label>Komisi Faktur</label><br>
 
 <?php 
@@ -1040,7 +1102,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas komisi_produk -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas komisi_produk -->
 <label>Komisi Produk</label><br>
 
 <?php 
@@ -1169,7 +1231,7 @@ else{
  ?>
 
 </div> <!-- / of otoritas hak_otoritas -->
-<div class="form-group col-sm-2"> <!-- start otoritas kategori -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas kategori -->
 <label>Kategori</label><br>
 
 <?php 
@@ -1232,7 +1294,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas gudang -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas gudang -->
 <label>Gudang</label><br>
 
 <?php 
@@ -1294,7 +1356,7 @@ else{
 </div> <!-- / of otoritas gudang -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas grup_akun -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas grup_akun -->
 <label>Group Akun</label><br>
 
 <?php 
@@ -1358,7 +1420,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas stok_awal -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas stok_awal -->
 <label>Stok Awal</label><br>
 
 <?php 
@@ -1419,7 +1481,7 @@ else{
 
 </div> <!-- / of otoritas stok_awal -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas stok_opname -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas stok_opname -->
 <label>Stok Opname</label><br>
 
 <?php 
@@ -1481,7 +1543,7 @@ else{
 </div> <!-- / of otoritas stok_opname -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas item_masuk -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas item_masuk -->
 <label>Item Masuk</label><br>
 
 <?php 
@@ -1542,7 +1604,7 @@ else{
 
 </div> <!-- / of otoritas item_masuk -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas item_keluar -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas item_keluar -->
 <label>Item Keluar</label><br>
 
 <?php 
@@ -1605,7 +1667,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas daftar_akun -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas daftar_akun -->
 <label>Daftar Akun</label><br>
 
 <?php 
@@ -1669,7 +1731,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas pembayaran_hutang -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas pembayaran_hutang -->
 <label>Pembayaran Hutang</label><br>
 
 <?php 
@@ -1731,7 +1793,7 @@ else{
 </div> <!-- / of otoritas pembayaran_hutang -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas pembayaran_piutang -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas pembayaran_piutang -->
 <label>Pembayaran Piutang</label><br>
 
 <?php 
@@ -1980,12 +2042,134 @@ else{
 </div> <!-- / of otoritas kas_mutasi -->
 
 
+<div class="form-group col-sm-2"> <!-- start otoritas penyetoran -->
+<label>Penyetoran Tabungan</label><br>
+
+<?php 
+
+if ($data_otoritas['penyetoran_lihat'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_lihat" name="penyetoran_lihat" checked="">
+    <label for="penyetoran_lihat">Lihat</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_lihat" name="penyetoran_lihat">
+    <label for="penyetoran_lihat">Lihat</label> <br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['penyetoran_tambah'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_tambah" name="penyetoran_tambah" checked=""> 
+    <label for="penyetoran_tambah">Tambah</label><br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_tambah" name="penyetoran_tambah"> 
+    <label for="penyetoran_tambah">Tambah</label><br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['penyetoran_edit'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_edit" name="penyetoran_edit" checked="">
+    <label for="penyetoran_edit">Edit</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_edit" name="penyetoran_edit">
+    <label for="penyetoran_edit">Edit</label> <br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['penyetoran_hapus'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_hapus" name="penyetoran_hapus" checked="">
+    <label for="penyetoran_hapus">Hapus</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penyetoran_hapus" name="penyetoran_hapus">
+    <label for="penyetoran_hapus">Hapus</label> <br>';  
+}
+
+ ?>
+
+</div> <!-- / of otoritas penyetoran -->
 
 
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas retur_penjualan -->
+<div class="form-group col-sm-2"> <!-- start otoritas jabatan -->
+<label>Penarikan Tabungan</label><br>
+
+<?php 
+
+if ($data_otoritas['penarikan_lihat'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_lihat" name="penarikan_lihat" checked="">
+    <label for="penarikan_lihat">Lihat</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_lihat" name="penarikan_lihat">
+    <label for="penarikan_lihat">Lihat</label> <br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['penarikan_tambah'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_tambah" name="penarikan_tambah" checked=""> 
+    <label for="penarikan_tambah">Tambah</label><br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_tambah" name="penarikan_tambah"> 
+    <label for="penarikan_tambah">Tambah</label><br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['penarikan_edit'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_edit" name="penarikan_edit" checked="">
+    <label for="penarikan_edit">Edit</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_edit" name="penarikan_edit">
+    <label for="penarikan_edit">Edit</label> <br>';  
+}
+
+ ?>
+
+<?php 
+
+if ($data_otoritas['penarikan_hapus'] == '1'){
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_hapus" name="penarikan_hapus" checked="">
+    <label for="penarikan_hapus">Hapus</label> <br>';
+}
+
+else{
+    echo '<input type="checkbox" value="1" class="cekcbox filled-in" id="penarikan_hapus" name="penarikan_hapus">
+    <label for="penarikan_hapus">Hapus</label> <br>';  
+}
+
+ ?>
+
+</div> <!-- / of otoritas jabatan -->
+
+
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas retur_penjualan -->
 <label> Retur Penjualan</label><br>
 
 <?php 
@@ -2046,7 +2230,7 @@ else{
 
 </div> <!-- / of otoritas retur_penjualan -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas retur_pembelian -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas retur_pembelian -->
 <label>Retur Pembelian</label><br>
 
 <?php 
@@ -2108,7 +2292,7 @@ else{
 </div> <!-- / of otoritas retur_pembelian -->
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas retur_pembelian -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas retur_pembelian -->
 <label>Transaksi Jurnal</label><br>
 
 <?php 
@@ -2169,7 +2353,7 @@ else{
 
 </div> <!-- / of otoritas transaksi_jurnal_manual -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas / -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas / -->
 <label>Daftar Pajak</label><br>
 
 <?php 
@@ -2230,7 +2414,7 @@ else{
 </div> <!-- /  -->
 
 
-<div style="display: none" class="form-group col-sm-2"> <!-- start otoritas laporan_pemasukan_tanggal -->
+<div style="display: none" class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_pemasukan_tanggal -->
 <label>Laporan Pemasukan</label><br>
 
 <?php 
@@ -2263,7 +2447,7 @@ else{
 
 </div> <!-- / of otoritas lap_pemasukan_tanggal, rekap $ perperiode -->
 
-<div style="display: none" class="form-group col-sm-2"> <!-- start otoritas laporan_pengeluaran_tanggal -->
+<div style="display: none" class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_pengeluaran_tanggal -->
 <label>Laporan Pengeluaran</label><br>
 
 <?php 
@@ -2296,7 +2480,7 @@ else{
 
 </div> <!-- / of otoritas lap_pemasukan_tanggal, rekap $ perperiode -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas laporan_komisi -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_komisi -->
 <label>Laporan Komisi</label><br>
 
 <?php 
@@ -2342,7 +2526,7 @@ else{
 </div>
 
 
- <div class="form-group col-sm-2"> <!-- start otoritas set_diskon_tax -->
+ <div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas set_diskon_tax -->
 <label>Diskon / Pajak</label><br>
 
 <?php 
@@ -2377,7 +2561,7 @@ else{
 
 
 <div class="form-group col-sm-2"> <!-- start otoritas set_perusahaan -->
-<label>Perusahaan</label><br>
+<label>Data Sekolah</label><br>
 
 <?php 
 
@@ -2407,7 +2591,7 @@ else{
 
 </div> <!-- / of otoritas set_perusahaan -->
 
-<div class="form-group col-sm-2"> <!-- start otoritas kas -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas kas -->
 <label>Kas</label><br>
 
 <?php 
@@ -2448,7 +2632,7 @@ else{
 
 
 
-<div style="display: none" class="form-group col-sm-2"> <!-- start otoritas cash_flow_tanggal -->
+<div style="display: none" class="form-group col-sm-2" style="display: none;"> <!-- start otoritas cash_flow_tanggal -->
 <label> Laporan Cash Flow</label><br>
 
 <?php 
@@ -2479,7 +2663,7 @@ else{
 
 
 
-<div class="form-group col-sm-2"> <!-- start otoritas laporan_retur_pembelian -->
+<div class="form-group col-sm-2" style="display: none;"> <!-- start otoritas laporan_retur_pembelian -->
 <label>Laporan Retur</label><br>
 
 <?php 
@@ -2512,7 +2696,7 @@ else{
     
 </div>
 
-<div class="form-group col-sm-3"> <!-- start otoritas laporan_pembayaran_hutang -->
+<div class="form-group col-sm-3" style="display: none;"> <!-- start otoritas laporan_pembayaran_hutang -->
 <label>Laporan Pembayaran</label><br>
 
 <?php 
@@ -2543,7 +2727,7 @@ else{
 
 
 
-<div class="form-group col-sm-3"> <!-- start otoritas laporan_pembelian -->
+<div class="form-group col-sm-3" style="display: none;"> <!-- start otoritas laporan_pembelian -->
 <label>Laporan Pembelian & Penjualan</label><br>
 
 <?php 
@@ -2573,7 +2757,7 @@ else{
 </div> <!-- / of otoritas lap_pembelian - penjualan -->
 
 
-<div class="form-group col-sm-3"> <!-- start otoritas laporan_hutang_beredar -->
+<div class="form-group col-sm-3" style="display: none;"> <!-- start otoritas laporan_hutang_beredar -->
 <label>Laporan Hutang & Piutang</label><br>
 
 <?php 

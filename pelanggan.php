@@ -378,7 +378,13 @@ $pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
 </div>
 
 
-   <i><p style="color:red;"> * Note :Untuk Login dengan nasabah</p><p>- Username : No Rekening <br>- Password : 1234 </p></i>
+   <i><p style="color:red;"> <b>**Note : Login Awal (Nasabah)</b></i>
+   <table>
+	  <tbody>
+	    <tr><td>User</td> <td>:&nbsp;</td><td>No. Rekening</td></tr>
+	    <tr><td>Password</td> <td>:&nbsp;</td><td>1234</td></tr>
+	  </tbody>
+	</table>
 
 
 </div> <!--end of container-->
@@ -563,12 +569,23 @@ $pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
 					// end fungsi tambah 
 
 					//fungsi hapus data 
-								  $(document).on('click', '.btn-hapus', function (e) {
+								$(document).on('click', '.btn-hapus', function (e) {
 								var nama_pelanggan = $(this).attr("data-pelanggan");
+								var kode = $(this).attr("data-kode");
 								var id = $(this).attr("data-id");
 								$("#data_pelanggan").val(nama_pelanggan);
 								$("#id_hapus").val(id);
-								$("#modal_hapus").modal('show');
+
+								$.post("cek_hapus_pelanggan.php",{id:id},function(data){
+									if (data == 1) {
+
+										alert("Nasabah a/n '"+nama_pelanggan+"' Tidak Bisa Dihapus. Karena Sudah Ada Penyetoran atau Penarikan Tabungan.");									
+									}
+									else{
+										$("#modal_hapus").modal('show');
+									}
+								});
+								
 								
 								
 								});
