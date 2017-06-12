@@ -13,7 +13,7 @@ include 'db.php';
 
 <!--tampilan modal-->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog ">
 
     <!-- isi modal-->
     <div class="modal-content">
@@ -25,9 +25,9 @@ include 'db.php';
       <div class="modal-body">
 
 <span class="modal_baru">
-<div class="table-resposive">
+<div class="table-responsive">
 <center>
-    <table id="tabel_siswa" class="table table-striped">
+    <table id="tabel_siswa" class="table table-bordered table-sm">
         <thead> <!-- untuk memberikan nama pada kolom tabel -->
         
       <th> No Rekening </th>
@@ -96,7 +96,7 @@ include 'db.php';
 </table>
 <br> <br>      
 <div class="table-resposive">
-    <table id="tabel_tampil" class="table table-striped">
+    <table id="tabel_tampil" class="table table-bordered table-sm">
         <thead> <!-- untuk memberikan nama pada kolom tabel -->
         
       <th  style='background-color: #4CAF50; color: white'> Tanggal </th>
@@ -114,17 +114,13 @@ include 'db.php';
         <div class="col-sm-2">
           <label style="height: 25px; width:90%; font-size:20px;"> Total Saldo</label>
             <b><input type="text" style="height: 25px; width:90%; font-size:20px;" class="form-control" id="total_saldo" autocomplete="off" name="total_saldo" readonly=""></b>
-            <p> * Kode <br> 1.Penabungan <br> 2. Penarikan </p>
+            <p> * Kode <br> 1.Penyetoran <br> 2. Penarikan </p>
         </div>
 
 
-        <div class="col-sm-2"><br>
+        <div class="col-sm-6"><br>
           <a id="trx" href='' class='btn btn-success' target='blank'><i class='fa fa-print'> </i> Cetak</a>
-        </div>  
-
-         <div class="col-sm-2">
-         <br>
-        <a href='' style="width: 170px;" type='submit' id="btn-export" class='btn btn-default'><i class='fa fa-download'> </i> Download Excel</a>
+          <a href='' style="width: 170px;" type='submit' id="btn-export" class='btn btn-default'><i class='fa fa-download'> </i> Download Excel</a>
         </div>
 
     </div>

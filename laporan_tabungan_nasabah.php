@@ -15,7 +15,7 @@ include 'db.php';
 
 <!--tampilan modal-->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog ">
 
     <!-- isi modal-->
     <div class="modal-content">
@@ -27,9 +27,9 @@ include 'db.php';
       <div class="modal-body">
 
 <span class="modal_baru">
-<div class="table-resposive">
+<div class="table-responsive">
 <center>
-    <table id="tabel_siswa" class="table table-striped">
+    <table id="tabel_siswa" class="table table-bordered table-sm">
         <thead> <!-- untuk memberikan nama pada kolom tabel -->
         
       <th> No Rekening </th>
@@ -61,7 +61,7 @@ include 'db.php';
 
 <input type="hidden" class="form-control" id="id_nasabah" value="<?php echo $data['id'];?>" autocomplete="off" name="id_nasabah">
 <div class="form-group">
-    <input type="text" class="form-control dsds" id="daritgl" autocomplete="off" name="daritanggal" placeholder="Dari Tanggal" value="<?php echo date("Y-m-d");?>">
+    <input type="text" class="form-control dsds" id="daritgl" autocomplete="off" name="daritanggal" placeholder="Dari Tanggal" value="">
 </div>
 
 <div class="form-group">
@@ -91,7 +91,7 @@ include 'db.php';
 </table>
 <br> <br>      
 <div class="table-resposive">
-    <table id="tabel_tampil" class="table table-striped table-sm">
+    <table id="tabel_tampil" class="table table-bordered table-sm">
         <thead> <!-- untuk memberikan nama pada kolom tabel -->
         
       <th  style='background-color: #4CAF50; color: white'> Tanggal </th>
@@ -113,13 +113,9 @@ include 'db.php';
         </div>
 
 
-        <div class="col-sm-2"><br>
+        <div class="col-sm-6"><br>
           <a id="trx" href='' class='btn btn-success' target='blank'><i class='fa fa-print'> </i> Cetak</a>
-        </div>  
-
-         <div class="col-sm-2">
-         <br>
-        <a href='' style="width: 170px;" type='submit' id="btn-export" class='btn btn-default'><i class='fa fa-download'> </i> Download Excel</a>
+          <a href='' style="width: 170px;" type='submit' id="btn-export" class='btn btn-default'><i class='fa fa-download'> </i> Download Excel</a>
         </div>
 
     </div>
@@ -316,8 +312,8 @@ $(function() {
 
           $("#judul").show();
           $("#judul").text(judul);
-          $("#trx").attr('href','cetak_lap_tabungan_rek.php?dari_tanggal='+dari_tanggal+'&sampai_tanggal='+sampai_tanggal+"&id_nasabah="+id+"");
-          $("#btn-export").attr("href","export_lap_tab_rek.php?dari_tanggal="+dari_tanggal+"&sampai_tanggal="+sampai_tanggal+"&id_nasabah="+id+"");
+          $("#trx").attr('href','cetak_lap_tabungan_nasabah.php?dari_tanggal='+dari_tanggal+'&sampai_tanggal='+sampai_tanggal+"&id_nasabah="+id+"");
+          $("#btn-export").attr("href","export_lap_tab_nasabah.php?dari_tanggal="+dari_tanggal+"&sampai_tanggal="+sampai_tanggal+"&id_nasabah="+id+"");
 
           $.getJSON("cek_data_nasabah.php",{id:id},function(info){
 

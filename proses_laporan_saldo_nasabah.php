@@ -115,7 +115,7 @@ $asd = mysqli_fetch_array($qweqw);
     $nestedData[] = $row["kode"];
 
     if ($row["kode"] == 1) {
-    $nestedData[] = rp($row["jumlah"]);
+    $nestedData[] = "<p align='right'>".rp($row["jumlah"])."</p>";
     $nestedData[] = "";
 
     }
@@ -123,11 +123,11 @@ $asd = mysqli_fetch_array($qweqw);
     {
 
     $nestedData[] = "";
-    $nestedData[] = rp($row["jumlah"]);
+    $nestedData[] = "<p align='right'>".rp($row["jumlah"])."</p>";
 
     }
     
-    $nestedData[] = rp($total);
+    $nestedData[] = "<p align='right'>".rp($total)."</p>";
         
     $data[] = $nestedData;
         

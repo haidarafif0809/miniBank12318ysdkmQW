@@ -179,7 +179,7 @@ mysqli_close($db);
 
     <div class="row">
       <div class="col-sm-6">
-              <font class="satu"><b>Petugas <br><br><br><br> <font class="satu"><?php echo $_SESSION['nama']; ?></font></b></font> 
+              <font class="satu"><b>Petugas <br><br><br><br> <font class="satu"><?php echo $_SESSION['nama_pelanggan']; ?></font></b></font> 
       </div>
          <div class="col-sm-3">
 

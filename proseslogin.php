@@ -58,12 +58,12 @@
 
                 if (password_verify($password,$passwordku)) 
                 {
-                echo "Mohon Tunggu...";
-                $_SESSION['kode_pelanggan'] = $username;
-                $_SESSION['nama_pelanggan'] = $nasabah['nama_pelanggan'];
-                $_SESSION['id_pelanggan'] = $nasabah['id'];
-
+                echo "Mohon Tunggu..."; echo "<br>";
+                echo $_SESSION['kode_pelanggan'] = $username; echo "<br>";
+                echo $_SESSION['nama_pelanggan'] = $nasabah['nama_pelanggan']; echo "<br>";
+                echo $_SESSION['id_pelanggan'] = $nasabah['id'];
                 echo '<META HTTP-EQUIV="Refresh" Content="0; URL=laporan_tabungan_nasabah.php">';
+
                 
                 }
                 else
