@@ -8,7 +8,7 @@ $password = enkripsi('1234');
 
 
 
-$query = $db->prepare("UPDATE user SET password = ? WHERE id = ? ");
+$query = $db->prepare("UPDATE pelanggan SET password = ? WHERE id = ? ");
 
 $query->bind_param("ss",
 	$password,$id);
