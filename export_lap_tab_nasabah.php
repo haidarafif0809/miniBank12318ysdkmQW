@@ -68,7 +68,7 @@ $ccc = mysqli_fetch_array($loip);
       <td><p style='color:red'>SALDO AWAL</p>   </td>
       <td></td>
       <td></td>
-     <td><p style='color:red'>".$total_saldo_awal."</p></td>
+     <td><p style='color:red' align='right'>".$total_saldo_awal."</p></td>
      </tr>";
 
 while($data1 = mysqli_fetch_array($select))
@@ -90,7 +90,7 @@ $asd = mysqli_fetch_array($qweqw);
       <td>". $data1['jam'] ."</td>
       <td>". $data1['kode'] ."</td>";      
     if ($data1["kode"] == 1) {
-    echo"<td align='right'>". rp($data1["jumlah"])." </td>
+    echo"<td align='right' align='right'>". rp($data1["jumlah"])." </td>
         <td></td>";
 
     }
@@ -101,7 +101,7 @@ $asd = mysqli_fetch_array($qweqw);
     <td>". rp($data1["jumlah"])." </td>";
 
     }
-     echo"<td align='right'>".rp($total)."</td>";
+     echo"<td align='right' align='right'>".rp($total)."</td>";
       echo "</tr>";
       }
 //Untuk Memutuskan Koneksi Ke Database

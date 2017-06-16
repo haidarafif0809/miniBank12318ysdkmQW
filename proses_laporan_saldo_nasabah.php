@@ -87,10 +87,10 @@ $nestedData=array();
 
 $nestedData[] = "";
 $nestedData[] = "";
-$nestedData[] = "<p style='color:red'>SALDO AWAL</p>";
+$nestedData[] = "<p style='color:red' >SALDO AWAL</p>";
 $nestedData[] = "";
 $nestedData[] = "";
-$nestedData[] =  "<p style='color:red'>".$total_saldo_awal."</p>";
+$nestedData[] =  "<p style='color:red' align='right' >".$total_saldo_awal."</p>";
 
 $data[] = $nestedData;
 

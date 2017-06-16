@@ -290,6 +290,7 @@ $(function() {
         return tahun;
         }
         var dari_tanggal = $("#daritgl").val();
+
         var ambil_tgl1 = ambil_tgl(dari_tanggal);
         var ambil_bln1 = ambil_bln(dari_tanggal);
         var ambil_thn1 = ambil_thn(dari_tanggal);
@@ -302,8 +303,12 @@ $(function() {
         var tanggal2 = ambil_tgl2 + "/" + ambil_bln2 + "/" + ambil_thn2;
 
         var id = $("#id_nasabah").val()
-        var judul = "Laporan Tabungan Dari " + tanggal1 + " Sampai " + tanggal2;
-
+        if (dari_tanggal == "") {
+                     var judul = "Laporan Saldo Tabungan";
+        }
+        else{
+                     var judul = "Laporan Saldo Tabungan Dari " + tanggal1 + " Sampai " + tanggal2;
+        }
 
 
           $.post("cek_total_saldo.php",{id:id},function(data){
