@@ -75,19 +75,8 @@ $query = $db->query("SELECT id, kode_daftar_akun, nama_daftar_akun FROM daftar_a
 		<thead>
 			<th style="background-color: #4CAF50; color: white;"> Nama  </th>
 			<th style="background-color: #4CAF50; color: white;"> Jumlah </th>
-      <th style="background-color: #4CAF50; color: white;"> Default </th>
 
-
-<?php
-include 'db.php';
-
-$pilih_akses_kas_edit = $db->query("SELECT * FROM otoritas_kas WHERE id_otoritas = '$_SESSION[otoritas_id]'");
-$kas_edit = mysqli_fetch_array($pilih_akses_kas_edit);
-
-    if ($kas_edit['kas_edit'] > 0) {
-      echo "<th style='background-color: #4CAF50; color: white;''> Edit </th>";
-}
-?>			
+			
 
 			
 			
@@ -104,29 +93,57 @@ $kas_edit = mysqli_fetch_array($pilih_akses_kas_edit);
 
             
 // MENCARI JUMLAH KAS
-            $query0 = $db->query("SELECT SUM(debit) - SUM(kredit) AS total_kas FROM jurnal_trans WHERE kode_akun_jurnal = '$data[kode_daftar_akun]'");
-            $cek0 = mysqli_fetch_array($query0);
-            $total_kas = $cek0['total_kas'];
 
-            echo "<td>". rp($total_kas) ."</td>";
-            $sett_akun = $db->query("SELECT kas FROM setting_akun");
-            $data_sett = mysqli_fetch_array($sett_akun);
-            
-            if ($data['kode_daftar_akun'] == $data_sett['kas']) {
-            
-            echo "<td> <i class='fa fa-check'> </i> </td>";
-            }
-            else{
-            echo "<td> <i class='fa fa-close'> </i> </td>";
-            }
-            
-            
-            
-    if ($kas_edit['kas_edit'] > 0) {
-            
-            echo "<td> <button class='btn btn-info btn-edit-default' data-id='".$data['id']."' data-kode='".$data['kode_daftar_akun']."'> <span class='glyphicon glyphicon-edit'></span> Edit</button> </td>";
-            
-            }
+
+           
+
+            $query2 = $db->query("SELECT SUM(jumlah) AS jumlah_kas_masuk FROM detail_kas_masuk WHERE ke_akun = '$data[kode_daftar_akun]' ");
+            $cek2 = mysqli_fetch_array($query2);
+            $jumlah_kas_masuk = $cek2['jumlah_kas_masuk'];
+
+            $query20 = $db->query("SELECT SUM(jumlah) AS jumlah_kas_masuk_mutasi FROM kas_mutasi WHERE ke_akun = '$data[kode_daftar_akun]'");
+            $cek20 = mysqli_fetch_array($query20);
+            $jumlah_kas_masuk_mutasi = $cek20['jumlah_kas_masuk_mutasi'];
+
+
+
+            $query_detail_penyetoran = $db->query("SELECT SUM(jumlah) AS jumlah_detail_penyetoran FROM detail_penyetoran WHERE ke_akun = '$data[kode_daftar_akun]'");
+            $data_detail_penyetoran = mysqli_fetch_array($query_detail_penyetoran);
+            $sum_detail_penyetoran = $data_detail_penyetoran['jumlah_detail_penyetoran'];
+
+//jumlah kas masuk 1
+
+            $kas_pemasukan = $jumlah_kas_masuk + $jumlah_kas_masuk_mutasi + $sum_detail_penyetoran;
+
+
+
+// start kas keluar 2 
+
+
+
+            $query5 = $db->query("SELECT SUM(jumlah) AS jumlah_kas_keluar FROM kas_keluar WHERE dari_akun = '$data[kode_daftar_akun]' ");
+            $cek5 = mysqli_fetch_array($query5);
+            $jumlah_kas_keluar = $cek5['jumlah_kas_keluar'];
+
+            $query5 = $db->query("SELECT SUM(jumlah) AS jumlah_kas_keluar_mutasi FROM kas_mutasi WHERE dari_akun = '$data[kode_daftar_akun]'");
+            $cek5 = mysqli_fetch_array($query5);
+            $jumlah_kas_keluar_mutasi = $cek5['jumlah_kas_keluar_mutasi'];
+
+
+
+
+            $query_detail_penarikan = $db->query("SELECT SUM(jumlah) AS jumlah_detail_penarikan FROM detail_penarikan WHERE dari_akun = '$data[kode_daftar_akun]'");
+            $data_detail_penarikan = mysqli_fetch_array($query_detail_penarikan);
+            $sum_detail_penarikan = $data_detail_penarikan['jumlah_detail_penarikan'];
+
+//jumlah kas keluar 2
+            $kas_pengeluaran = $jumlah_kas_keluar + $jumlah_kas_keluar_mutasi + $sum_detail_penarikan;
+
+
+// perhitungan jumlah
+            $jumlah_kas = $kas_pemasukan - $kas_pengeluaran;
+
+            echo "<td>". rp($jumlah_kas) ."</td>";
 
       }
 

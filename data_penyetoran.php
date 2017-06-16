@@ -8,9 +8,6 @@ include 'sanitasi.php';
 include 'db.php';
 
 
-//menampilkan seluruh data yang ada pada tabel pembelian dalan DB
-$perintah = $db->query("SELECT km.petugas_edit,km.tanggal_edit,km.jam_edit,km.id, km.no_faktur, km.keterangan, km.ke_akun, km.jumlah, km.tanggal, km.jam, km.user, da.nama_daftar_akun FROM penyetoran km INNER JOIN daftar_akun da ON km.ke_akun = da.kode_daftar_akun");
-
  ?>
 
 <style>
@@ -136,12 +133,11 @@ tr:nth-child(even){background-color: #f2f2f2}
 <h3><b>DATA PENYETORAN UANG</b></h3><hr>
 
 <?php
-include 'db.php';
 
-$pilih_akses_kas_masuk = $db->query("SELECT * FROM otoritas_kas_masuk WHERE id_otoritas = '$_SESSION[otoritas_id]'");
-$kas_masuk = mysqli_fetch_array($pilih_akses_kas_masuk);
+$pilih_akses = $db->query("SELECT penyetoran_tambah, penyetoran_edit, penyetoran_hapus FROM otoritas_transaksi_kas WHERE id_otoritas = '$_SESSION[otoritas_id]'");
+$data_akses = mysqli_fetch_array($pilih_akses);
 
-if ($kas_masuk['kas_masuk_tambah'] > 0) {
+if ($data_akses['penyetoran_tambah'] > 0) {
 
 echo '<a href="penyetoran.php"  class="btn btn-info"><i class="fa fa-plus"> </i> Penyetoran</a>';
 }
@@ -151,7 +147,7 @@ echo '<a href="penyetoran.php"  class="btn btn-info"><i class="fa fa-plus"> </i>
 
 <div class="table-responsive"><!--membuat agar ada garis pada tabel disetiap kolom-->
 <span id="tabel-baru">
-<table id="tableuser" class="table table-bordered">
+<table id="tableuser" class="table table-bordered table-sm">
 		<thead>
 			<th style='background-color: #4CAF50; color:white'> Nomor Faktur </th>
 			<th style='background-color: #4CAF50; color:white'> Ke Akun </th>
@@ -165,7 +161,7 @@ echo '<a href="penyetoran.php"  class="btn btn-info"><i class="fa fa-plus"> </i>
 			<th style='background-color: #4CAF50; color:white'> Detail </th>
 <?php
 
-if ($kas_masuk['kas_masuk_edit'] > 0) {
+if ($data_akses['penyetoran_edit'] > 0) {
 
 			echo "<th style='background-color: #4CAF50; color:white'> Edit </th>";
 }
@@ -173,7 +169,7 @@ if ($kas_masuk['kas_masuk_edit'] > 0) {
 
 <?php
 
-if ($kas_masuk['kas_masuk_hapus'] > 0) {
+if ($data_akses['penyetoran_hapus'] > 0) {
 
 			echo "<th style='background-color: #4CAF50; color:white'> Hapus </th>";
 }
@@ -216,7 +212,7 @@ if ($kas_masuk['kas_masuk_hapus'] > 0) {
             }
           },
               "fnCreatedRow": function( nRow, aData, iDataIndex ) {
-              $(nRow).attr('class','tr-id-'+aData[13]+'');
+              $(nRow).attr('class','tr-id-'+aData[12]+'');
             },
         } );
       } );

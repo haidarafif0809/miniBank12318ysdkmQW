@@ -9,7 +9,6 @@ include 'db.php';
 
 
 //menampilkan seluruh data yang ada pada tabel pelanggan
-$query = $db->query("SELECT * FROM pelanggan");
 
  ?>
 
@@ -74,15 +73,27 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 
 					<label> Kelas </label><br>
 					<select type="text" name="level_harga" id="level_harga" class="form-control" required="" >
-
 					<option value="">--SILAKAN PILIH--</option>
-					<option>Kelas 1</option>
-					<option>Kelas 2</option>
-					<option>Kelas 3</option>
-
-
+					<option>Kelas X</option>
+					<option>Kelas XI</option>
+					<option>Kelas XII</option>
 					</select>
-					
+
+				
+				<label> Jurusan </label><br>
+				<select  type="text" name="jurusan" id="jurusan" class="form-control"
+				required="">
+				<option value="Tidak Ada">Tidak Ada</option>
+          			<?php 
+          			 $jurme = $db->query("SELECT id,nama FROM jurusan");
+          			 while($outin = mysqli_fetch_array($jurme))
+          			 {
+          			 echo "<option value='".$outin['id']."'>".$outin['nama'] ."</option>";
+          			 }
+          			?>
+          		</select>
+          		
+
 					<br>
 					<button type="submit" id="submit_tambah" class="btn btn-success">Submit</button>
 
@@ -153,6 +164,42 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 </div>
 
 <!--end modal import-->
+
+
+
+<!-- Modal Reset data -->
+<div id="modal_reset" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Konfirmasi Reset Password Data Nasabah</h4>
+      </div>
+
+      <div class="modal-body">
+   
+   <p>Apakah Anda yakin Ingin Mengganti Password Data ini ?</p>
+ 
+     <input type="hidden" id="reset_id_hapus" class="form-control" > 
+
+   
+  <div class="alert alert-success" style="display:none">
+   <strong>Berhasil!</strong> Password Berhasil Di Reset
+  </div>
+ 
+
+     </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="btn_jadi_reset"><span class='glyphicon glyphicon-ok-sign'> </span> Ya</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal"><span class='glyphicon glyphicon-remove-sign'> </span> Batal</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end of modal reset data  -->
 
 
 
@@ -232,21 +279,28 @@ $pelanggan = mysqli_num_rows($pilih_akses_pelanggan);
 
 					<label> Kelas </label><br>
 					<select type="text" name="edit_level_harga" id="edit_level_harga" class="form-control" required="" >
-
-					<option value="">--SILAKAN PILIH--</option>
-					<option>Kelas 1</option>
-					<option>Kelas 2</option>
-					<option>Kelas 3</option>
-
-
+					<option>Kelas X</option>
+					<option>Kelas XI</option>
+					<option>Kelas XII</option>
 					</select>
 					
 
-    			    <input type="hidden" class="form-control" id="id_edit">
+				<label> Jurusan </label><br>
+				<select  type="text" name="edit_jurusan" id="edit_jurusan" class="form-control"
+				required="">
+				<option value="Tidak Ada">Tidak Ada</option>
+          			<?php 
+          			 $jurme = $db->query("SELECT id,nama FROM jurusan");
+          			 while($outin = mysqli_fetch_array($jurme))
+          			 {
+          			 echo "<option value='".$outin['id']."'>".$outin['nama'] ."</option>";
+          			 }
+          			?>
+          		</select>
+
+    			<input type="hidden" class="form-control" id="id_edit">
     
    </div>
-   
-   
    					<button type="submit" id="submit_edit" class="btn btn-success">Submit</button>
    					</div>
   </form>
@@ -275,7 +329,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 
 <div class="table-responsive"><!-- membuat agar ada garis pada tabel, disetiap kolom -->
 <span id="table_baru">
-<table id="tableuser" class="table table-bordered">
+<table id="tableuser" class="table table-bordered table-sm">
 		<thead>
 			
 			<th style='background-color: #4CAF50; color: white'> No Rekening </th>
@@ -285,15 +339,14 @@ tr:nth-child(even){background-color: #f2f2f2}
 			<th style='background-color: #4CAF50; color: white'> Nomor Telp </th>
 			<th style='background-color: #4CAF50; color: white'> E-mail </th>
 			<th style='background-color: #4CAF50; color: white'> Wilayah</th>
-
+			<th style='background-color: #4CAF50; color: white'> Jurusan</th>
+			<th style='background-color: #4CAF50; color: white'> Saldo</th>
 <?php 
 
 include 'db.php';
 
 $pilih_akses_pelanggan_hapus = $db->query("SELECT pelanggan_hapus FROM otoritas_master_data WHERE id_otoritas = '$_SESSION[otoritas_id]' AND pelanggan_hapus = '1'");
 $pelanggan_hapus = mysqli_num_rows($pilih_akses_pelanggan_hapus);
-
-
     if ($pelanggan_hapus > 0){
 
 			echo "<th style='background-color: #4CAF50; color: white'> Hapus </th>";
@@ -314,65 +367,26 @@ $pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
     }
 
  ?>
-			
+		 <th style='background-color: #4CAF50; color: white'> Reset</th>	
 			
 		</thead>
 		
-		<tbody>
-		<?php
-
-			//menyimpan data sementara yang ada pada $query
-			while ($data = mysqli_fetch_array($query))
-			{
-				//menampilkan data
-			echo "<tr>
-			
-			<td>". $data['kode_pelanggan'] ."</td>
-			<td>". $data['nama_pelanggan'] ."</td>
-			<td>". $data['level_harga'] ."</td>
-			<td>". tanggal($data['tgl_lahir']) ."</td>
-			<td>". $data['no_telp'] ."</td>
-			<td>". $data['e_mail'] ."</td>
-			<td>". $data['wilayah'] ."</td>";
-			
-
-
-include 'db.php';
-
-$pilih_akses_pelanggan_hapus = $db->query("SELECT pelanggan_hapus FROM otoritas_master_data WHERE id_otoritas = '$_SESSION[otoritas_id]' AND pelanggan_hapus = '1'");
-$pelanggan_hapus = mysqli_num_rows($pilih_akses_pelanggan_hapus);
-
-
-    if ($pelanggan_hapus > 0){
-
-
-			echo "<td> <button class='btn btn-danger btn-hapus' data-id='". $data['id'] ."' data-pelanggan='". $data['nama_pelanggan'] ."'> <span class='glyphicon glyphicon-trash'> </span> Hapus </button> </td>";
-
-		}
-
-include 'db.php';
-
-$pilih_akses_pelanggan_edit = $db->query("SELECT pelanggan_edit FROM otoritas_master_data WHERE id_otoritas = '$_SESSION[otoritas_id]' AND pelanggan_edit = '1'");
-$pelanggan_edit = mysqli_num_rows($pilih_akses_pelanggan_edit);
-
-
-    if ($pelanggan_edit > 0){
-			echo "<td> <button class='btn btn-info btn-edit' data-pelanggan='". $data['nama_pelanggan'] ."' data-kode='". $data['kode_pelanggan'] ."' data-tanggal='". $data['tgl_lahir'] ."' data-nomor='". $data['no_telp'] ."' data-email='". $data['e_mail'] ."' data-wilayah='". $data['wilayah'] ."' data-level-harga='". $data['level_harga'] ."' data-id='". $data['id'] ."'> <span class='glyphicon glyphicon-edit'> </span> Edit </button> </td>";
-		}
-
-			echo"</tr>";
-			}
-
-//Untuk Memutuskan Koneksi Ke Database
-mysqli_close($db);   
-			
-		?>
-		</tbody>
 
 	</table>
 	</span>
 
 </div>
+
+
+   <i><p style="color:red;"> <b>**Note : Login Awal (Nasabah)</b></i>
+   <table>
+	  <tbody>
+	    <tr><td>User</td> <td>:&nbsp;</td><td>No. Rekening</td></tr>
+	    <tr><td>Password</td> <td>:&nbsp;</td><td>1234</td></tr>
+	  </tbody>
+	</table>
+
+
 </div> <!--end of container-->
 
 
@@ -389,13 +403,66 @@ mysqli_close($db);
 	</script>
 
 
-<script>
-//untuk menampilkan data tabel
-$(document).ready(function(){
-    $('.table').DataTable();
-});
+  <script type="text/javascript" language="javascript" >
+      $(document).ready(function() {
+        var dataTable = $('#tableuser').DataTable( {
+          "processing": true,
+          "serverSide": true,
+          "ajax":{
+            url :"datatable_pelanggan.php", // json datasource
+            type: "post",  // method  , by default get
+            error: function(){  // error handling
+              $(".tbody").html("");
+              $("#tableuser").append('<tbody class="tbody"><tr ><td colspan="3">No data found in the server</td></tr></tbody>');
+              $("#table_ri_processing").css("display","none");
+              
+            }
+          },
 
-</script>
+           "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+              $(nRow).attr('class','tr-id-'+aData[13]+'');
+
+},
+        } );
+      } );
+    </script>
+
+
+<script>
+//fungsi reset password data 
+		$(document).on('click', '.btn-reset', function (e) {
+
+		var reset_id = $(this).attr("data-reset-id");
+		$("#reset_id_hapus").val(reset_id);
+		$("#modal_reset").modal('show');
+		
+
+		
+		$(".alert-success").hide();
+		
+		});
+
+
+		$("#btn_jadi_reset").click(function(){
+		
+
+		var user_name = $("#reset_user_name").val();
+		var id = $("#reset_id_hapus").val();
+		$.post("reset_password.php",{id:id},function(data){
+		if (data != "") {
+		$(".alert-success").show();
+		$("#modal_reset").modal('hide');
+	var tableuser = $('#tableuser').DataTable();
+                  tableuser.draw();
+		
+		}
+	
+		});
+			
+		});
+</script>       
+
+
 
 <script type="text/javascript">
 
@@ -437,8 +504,9 @@ $(document).ready(function(){
 								var no_telp = $("#nomor").val();
 								var e_mail = $("#email").val();
 								var tgl_lahir = $("#tgl_lahir").val();
-								var wilayah = $("#wilayah").val();
-																
+								var wilayah = $("#wilayah").val();	
+								var jurusan = $("#jurusan").val();	
+
 								if (kode_pelanggan == "") {
 
 									alert("Kode Pelanggan Harus Diisi");
@@ -453,13 +521,18 @@ $(document).ready(function(){
 
 									alert("Wilayah Harus Diisi");
 								}
+								else if (jurusan == "") {
+
+									alert("jurusan Harus Diisi");
+								}
+
 
 								else if (level_harga == "") {
 
 									alert("Level Harga Harus Dipilih");
 								}
 								else {								
-									$.post('prosespelanggan.php', {kode_pelanggan:kode_pelanggan,nama_pelanggan:nama_pelanggan,level_harga:level_harga,no_telp:no_telp,e_mail:e_mail,tgl_lahir:tgl_lahir,wilayah:wilayah}, function(data){
+									$.post('prosespelanggan.php', {jurusan:jurusan,kode_pelanggan:kode_pelanggan,nama_pelanggan:nama_pelanggan,level_harga:level_harga,no_telp:no_telp,e_mail:e_mail,tgl_lahir:tgl_lahir,wilayah:wilayah}, function(data){
 								
 								if (data != "") {
 								$("#kode_pelanggan").val('');
@@ -473,8 +546,9 @@ $(document).ready(function(){
 								
 								
 								$(".alert").show('fast');
-								$("#table_baru").load('tabel-pelanggan.php');
-								
+								var tableuser = $('#tableuser').DataTable();
+                 					 tableuser.draw();
+
 								setTimeout(tutupalert, 2000);
 								$(".modal").modal("hide");
 								}
@@ -495,12 +569,23 @@ $(document).ready(function(){
 					// end fungsi tambah 
 
 					//fungsi hapus data 
-								  $(document).on('click', '.btn-hapus', function (e) {
+								$(document).on('click', '.btn-hapus', function (e) {
 								var nama_pelanggan = $(this).attr("data-pelanggan");
+								var kode = $(this).attr("data-kode");
 								var id = $(this).attr("data-id");
 								$("#data_pelanggan").val(nama_pelanggan);
 								$("#id_hapus").val(id);
-								$("#modal_hapus").modal('show');
+
+								$.post("cek_hapus_pelanggan.php",{id:id},function(data){
+									if (data == 1) {
+
+										alert("Nasabah a/n '"+nama_pelanggan+"' Tidak Bisa Dihapus. Karena Sudah Ada Penyetoran atau Penarikan Tabungan.");									
+									}
+									else{
+										$("#modal_hapus").modal('show');
+									}
+								});
+								
 								
 								
 								});
@@ -535,6 +620,8 @@ $(document).ready(function(){
 								var wilayah = $(this).attr("data-wilayah");
 								var level_harga = $(this).attr("data-level-harga");
 								var id   = $(this).attr("data-id");
+								var jurusan = $(this).attr("data-jurusan");
+
 								$("#edit_nama").val(nama);
 								$("#edit_kode").val(kode);
 								$("#edit_tgl_lahir").val(tanggal);
@@ -543,6 +630,7 @@ $(document).ready(function(){
 								$("#edit_wilayah").val(wilayah);
 								$("#edit_level_harga").val(level_harga);
 								$("#id_edit").val(id);
+								$("#edit_jurusan").val(jurusan);
 								
 								
 								});
@@ -555,6 +643,7 @@ $(document).ready(function(){
 								var email = $("#edit_email").val();
 								var wilayah = $("#edit_wilayah").val();
 								var level_harga = $("#edit_level_harga").val();
+								var jurusan = $("#edit_jurusan").val();
 								var id   = $("#id_edit").val();
 
 								if (nama == ""){
@@ -578,11 +667,12 @@ $(document).ready(function(){
 									alert("Level Harga Harus Dipilih");
 								}
 								else {
-								$.post("update_pelanggan.php",{nama_pelanggan:nama,kode_pelanggan:kode,no_telp:nomor,tgl_lahir:tanggal,e_mail:email,wilayah:wilayah,level_harga:level_harga,id:id},function(data){
+								$.post("update_pelanggan.php",{jurusan:jurusan,nama_pelanggan:nama,kode_pelanggan:kode,no_telp:nomor,tgl_lahir:tanggal,e_mail:email,wilayah:wilayah,level_harga:level_harga,id:id},function(data){
 
 								
 
-								$("#table_baru").load('tabel-pelanggan.php');
+									var tableuser = $('#tableuser').DataTable();
+                  					tableuser.draw();
 								$("#modal_edit").modal('hide');
 								
 								
